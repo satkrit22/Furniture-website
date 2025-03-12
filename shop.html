@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri</title>
+
+     <!-- normalize css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     
+  
+    <!-- custom utilities css -->
+     <link rel = "stylesheet" href = "css/utilities.css">
+     
+    <!-- custom main css -->
+    <link rel = "stylesheet" href = "css/main.css">
+</head>
+<body>
+    
+      <!-- navbar -->
+    <nav class = "navbar bg-brown flex">
+        <div class = "container flex">
+            <div class = "toggler-and-category bg-brown text-white flex">
+                <button type = "button" class = "btn navbar-show-btn text-white">
+                    <i class = "fas fa-bars"></i>
+                </button>
+                <div class = "category-list">
+                    <span>Category</span>
+                    <button type = "button" class = "btn category-toggler-btn text-white">
+                        <i class = "fas fa-circle-arrow-down"></i>
+                    </button>
+                </div>
+
+                <!-- side navbar -->
+                <ul id = "side-navbar" class = "bg-white text-uppercase">
+                    <button type = "button" class = "btn navbar-hide-btn text-dark">
+                        <i class = "fas fa-times"></i>
+                    </button>
+                    <li><a href = "index.html">Home</a></li>
+                    <li><a href = "featured.html">Featured</a></li>
+                    <li><a href = "contact.html">Contact</a></li>
+                    <li><a href = "shop.html">Shop</a></li>
+                    <li><a href = "about.html">About Us</a></li>
+                    <li><a href = "login.html">Log In</a></li>
+                </ul>
+                <!-- end of side navbar -->
+
+                <ul id = "category-list-items" class = "bg-white">
+                    <li><a href = "#">Small Furniture</a></li>
+                    <li><a href = "#">NIghtstands</a></li>
+                    <li><a href = "#">Dressers</a></li>
+                    <li><a href = "#">Bookcase</a></li>
+                    <li><a href = "#">Coffee Tables</a></li>
+                    <li><a href = "#">Mattresses</a></li>
+                    <li><a href = "#">Sofas</a></li>
+                    <li><a href = "#">Chairs</a></li>
+                    <li><a href = "#">Hall Trees</a></li>
+                    <li><a href = "#">Furniture Stores</a></li>
+                </ul>
+            </div>
+
+            <!-- main navigation list -->
+            <div class = "navbar-collapse flex">
+                <!-- nav list -->
+                <ul class = "navbar-nav text-uppercase">
+                    <li class = "nav-item">
+                        <a href = "index.html" class = "nav-link">
+                            <span class = "nav-link-text">home</span>
+                            <span class = "dropdown-icon">
+                                <i class = "fas fa-chevron-down"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class = "nav-item">
+                        <a href = "featured.html" class = "nav-link">
+                            <span class = "nav-link-text">featured</span>
+                            <span class = "dropdown-icon">
+                                <i class = "fas fa-chevron-down"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class = "nav-item">
+                        <a href = "shop.html" class = "nav-link active-link">
+                            <span class = "nav-link-text">Shop</span>
+                            <span class = "dropdown-icon">
+                                <i class = "fas fa-chevron-down"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class = "nav-item">
+                        <a href = "contact.html" class = "nav-link">
+                            <span class = "nav-link-text">Contact</span>
+                            <span class = "dropdown-icon">
+                                <i class = "fas fa-chevron-down"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class = "nav-item">
+                        <a href = "about.html" class = "nav-link">
+                            <span class = "nav-link-text">About Us</span>
+                        </a>
+                    </li>
+                    <li class = "nav-item">
+                        <a href = "login.html" class = "nav-link">
+                            <span class = "nav-link-text">Log In</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- end of nav list -->
+
+                <!-- account icons -->
+                <div class = "account-info">
+                    <a href = "#" class = "btn text-white">
+                        <i class = "fas fa-person"></i>
+                    </a>
+                    <a href = "#" class = "btn text-white">
+                        <i class = "fas fa-shopping-basket"></i>
+                    </a>
+                </div>
+                <!-- end of account icons -->
+            </div>
+            <!-- end of main navigation list -->
+        </div>
+    </nav>
+    <!-- end of navbar -->
+
+    <!-- featured deals section -->
+    <section class = "featured-deals bg-light-grey-color-shade py" id = "featured-deals">
+        <div class = "container">
+            <div class = "section-title text-center">
+                <h2>featured deals</h2>
+                <p class = "lead">Here you can check out our products with fair price on Shri.</p>
+                <div class = "line"></div>
+            </div>
+
+            <div class = "featured-deals-content grid">
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <a href="sproduct.html">
+                        <img src = "images/new_product_img_1.png">
+                        </a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <a href="sproduct.html">
+                        <img src = "images/featured_deals_img_2.png">
+                    </a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_3.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_4.png">
+                    </div>
+                    <div class = "info bg-white">
+                       
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_1.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/new_product_img_2.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/new_product_img_3.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/new_product_img_4.png">
+                    </div>
+                    <div class = "info bg-white">
+                       
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_1.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_2.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_3.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_4.png">
+                    </div>
+                    <div class = "info bg-white">
+                       
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_1.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_2.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_3.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_4.png">
+                    </div>
+                    <div class = "info bg-white">
+                       
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_1.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_2.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_3.png">
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image">
+                        <img src = "images/featured_deals_img_4.png">
+                    </div>
+                    <div class = "info bg-white">
+                       
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">$ 50.00</span>
+                            <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <nav aria-label="...">
+                <ul class="pagination">
+                  <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">2</a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                  </li>
+                </ul>
+              </nav>
+        </div>
+    </section>
+    <!-- end of featured deals section -->
+
+
+
+    <!-- footer -->
+    <footer class = "footer bg-light-brown" id = "footer">
+        <div class = "container">
+            <div class = "footer-content py grid text-center">
+                <div class = "footer-item">
+                    <h3>Furnish.com</h3>
+                    <p class = "text">Welcome to Furnish.com, where quality meets craftsmanship. Explore our wide range of furniture collections, designed to bring comfort, elegance, and functionality to your home. From modern to classic styles, we help you create spaces you love.</p>
+                    <ul class = "social-links flex">
+                        <li>
+                            <a href = "#" class = "flex"><i class = "fab fa-facebook-f"></i></a>
+                        </li>
+                        <li>
+                            <a href = "#" class = "flex"><i class = "fab fa-instagram"></i></a>
+                        </li>
+                        <li>
+                            <a href = "#" class = "flex"><i class = "fab fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href = "#" class = "flex"><i class = "fab fa-pinterest"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class = "footer-item">
+                    <h3>Contact Us</h3>
+                    <p class = "text">Tokha-02 Kathmandu</p>
+                    <p class = "text">Phone: +977 9841943843</p>
+                    <p class = "text">Email: info@furnish.com</p>
+                </div>
+
+                <div class = "footer-item">
+                    <h3>Recent Post</h3>
+                    <ul>
+                        <li class = "text"><a href = "#">Rooms decoration package</a></li>
+                        <li class = "text"><a href = "#">Dinning Materials</a></li>
+                        <li class = "text"><a href = "#">Event Furniture</a></li>
+                    </ul>
+                </div>
+
+                <div class = "footer-item">
+                    <h3>Our Portfolio</h3>
+                    <ul>
+                        <li class = "text"><a href = "#">EFTA Design</a></li>
+                        <li class = "text"><a href = "#">County Hall Decoration</a></li>
+                        <li class = "text"><a href = "#">SOO Conference</a></li>
+                        <li class = "text"><a href = "#">LA Events</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class = "footer-end bg-dark">
+            <div class = "container grid">
+                <p class = "text text-white text-center">&copy; Copyright 2021. All Right Reserved. Designed and Developed by Kawsar Ahmed</p>
+                <div class = "flex payment">
+                    <img src = "images/pay_1.png">
+                    <img src = "images/pay_2.png">
+                    <img src = "images/pay_3.png">
+                    <img src = "images/pay_4.png">
+                    <img src = "images/pay_5.png">
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end of footer -->
+
+  
+    <!-- custom js -->
+    <script src = "js/script.js"></script>
+
+</body>
+</html>
