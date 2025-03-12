@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <style>
+        .cart-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .remove-btn:hover {
+            background-color: #ff4d4d;
+        }
+        .checkout-btn {
+            background-color: #f1ab40;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .checkout-btn:hover {
+            background-color: #fa9b0b;
+        }
+    </style>
+</head>
+<body>
+    <h3>Your Cart</h3>
+    <ul id="cart-items">
+        <!-- Cart items will be dynamically added here -->
+    </ul>
+    <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+
+    <script>
+        // Retrieve cart items from localStorage
+        function getCartItems() {
+            return JSON.parse(localStorage.getItem('cartItems')) || [];
+        }
+
+        // Display items in the cart
+        function displayCart() {
+            const cartItems = getCartItems();
+            const cartItemsList = document.getElementById('cart-items');
+
+            // Clear the list before adding updated items
+            cartItemsList.innerHTML = '';
+
+            if (cartItems.length === 0) {
+                cartItemsList.innerHTML = '<li>Your cart is empty!</li>';
+            } else {
+                cartItems.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    li.classList.add('cart-item');
+                    li.innerHTML = `${item.name} - ${item.price} <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>`;
+                    cartItemsList.appendChild(li);
+                });
+            }
+        }
+
+        // Remove item from the cart
+        function removeFromCart(index) {
+            let cartItems = getCartItems();
+            cartItems.splice(index, 1);  // Remove item at the specified index
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            displayCart();  // Re-display updated cart
+            updateCartCount();  // Update the cart count in the navbar
+        }
+
+        // Update the cart count in the navbar
+        function updateCartCount() {
+            let cartItems = getCartItems();
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) {
+                cartCount.textContent = cartItems.length;  // Update count in navbar (if exists)
+            }
+        }
+
+        // Initialize the cart on page load
+        window.onload = function() {
+            displayCart();
+            updateCartCount();  // Update the cart count in the navbar
+        }
+
+        // Checkout functionality (just an alert here, you can add real checkout logic)
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            alert('Proceeding to checkout...');
+        });
+    </script>
+</body>
+</html>

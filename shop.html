@@ -13,113 +13,65 @@
      
   
     <!-- custom utilities css -->
-     <link rel = "stylesheet" href = "css/utilities.css">
+     <link rel = "stylesheet" href = "css/shop.css">
      
-    <!-- custom main css -->
-    <link rel = "stylesheet" href = "css/main.css">
+    
 </head>
 <body>
     
       <!-- navbar -->
     <nav class = "navbar bg-brown flex">
         <div class = "container flex">
-            <div class = "toggler-and-category bg-brown text-white flex">
-                <button type = "button" class = "btn navbar-show-btn text-white">
-                    <i class = "fas fa-bars"></i>
-                </button>
-                <div class = "category-list">
-                    <span>Category</span>
-                    <button type = "button" class = "btn category-toggler-btn text-white">
-                        <i class = "fas fa-circle-arrow-down"></i>
-                    </button>
-                </div>
-
-                <!-- side navbar -->
-                <ul id = "side-navbar" class = "bg-white text-uppercase">
-                    <button type = "button" class = "btn navbar-hide-btn text-dark">
-                        <i class = "fas fa-times"></i>
-                    </button>
-                    <li><a href = "index.html">Home</a></li>
-                    <li><a href = "featured.html">Featured</a></li>
-                    <li><a href = "contact.html">Contact</a></li>
-                    <li><a href = "shop.html">Shop</a></li>
-                    <li><a href = "about.html">About Us</a></li>
-                    <li><a href = "login.html">Log In</a></li>
-                </ul>
-                <!-- end of side navbar -->
-
-                <ul id = "category-list-items" class = "bg-white">
-                    <li><a href = "#">Small Furniture</a></li>
-                    <li><a href = "#">NIghtstands</a></li>
-                    <li><a href = "#">Dressers</a></li>
-                    <li><a href = "#">Bookcase</a></li>
-                    <li><a href = "#">Coffee Tables</a></li>
-                    <li><a href = "#">Mattresses</a></li>
-                    <li><a href = "#">Sofas</a></li>
-                    <li><a href = "#">Chairs</a></li>
-                    <li><a href = "#">Hall Trees</a></li>
-                    <li><a href = "#">Furniture Stores</a></li>
-                </ul>
-            </div>
+          
+                
 
             <!-- main navigation list -->
             <div class = "navbar-collapse flex">
                 <!-- nav list -->
                 <ul class = "navbar-nav text-uppercase">
-                    <li class = "nav-item">
-                        <a href = "index.html" class = "nav-link">
-                            <span class = "nav-link-text">home</span>
-                            <span class = "dropdown-icon">
-                                <i class = "fas fa-chevron-down"></i>
-                            </span>
+                    <li class="nav-item">
+                        <a href="home.html" class="nav-link" 
+                           onmouseover="this.style.color='#ffb74d'" 
+                           onmouseout="this.style.color=''" 
+                           onmousedown="this.style.color='#ffb74d'" 
+                           onmouseup="this.style.color=''">
+                            <span class="nav-link-text">home</span>
                         </a>
                     </li>
+                    
+                  
                     <li class = "nav-item">
-                        <a href = "featured.html" class = "nav-link">
-                            <span class = "nav-link-text">featured</span>
-                            <span class = "dropdown-icon">
-                                <i class = "fas fa-chevron-down"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class = "nav-item">
-                        <a href = "shop.html" class = "nav-link active-link">
+                        <a href = "shop.html" class = "nav-link "
+                        onmouseover="this.style.color='#ffb74d'" 
+                           onmouseout="this.style.color=''" 
+                           onmousedown="this.style.color='#ffb74d'" 
+                           onmouseup="this.style.color=''">
                             <span class = "nav-link-text">Shop</span>
-                            <span class = "dropdown-icon">
-                                <i class = "fas fa-chevron-down"></i>
+                            
+                                
                             </span>
-                        </a>
-                    </li>
-                    <li class = "nav-item">
-                        <a href = "contact.html" class = "nav-link">
-                            <span class = "nav-link-text">Contact</span>
-                            <span class = "dropdown-icon">
-                                <i class = "fas fa-chevron-down"></i>
-                            </span>
-                        </a>
-                    </li>
-                    <li class = "nav-item">
-                        <a href = "about.html" class = "nav-link">
-                            <span class = "nav-link-text">About Us</span>
-                        </a>
-                    </li>
-                    <li class = "nav-item">
-                        <a href = "login.html" class = "nav-link">
-                            <span class = "nav-link-text">Log In</span>
                         </a>
                     </li>
                 </ul>
                 <!-- end of nav list -->
 
                 <!-- account icons -->
-                <div class = "account-info">
-                    <a href = "#" class = "btn text-white">
-                        <i class = "fas fa-person"></i>
+                <div class="nav-icons" style="display: flex; align-items: center;">
+                    <!-- User Icon -->
+                    <a href="signup.html" style="margin-right: 20px; text-decoration: none;">
+                        <i class="fa fa-user" style="font-size: 24px; color: #333;"></i>
                     </a>
-                    <a href = "#" class = "btn text-white">
-                        <i class = "fas fa-shopping-basket"></i>
-                    </a>
+                
+                    <!-- Cart Icon -->
+                    <div class="cart-container" style="position: relative;">
+                        <a href="cart.html" style="text-decoration: none;">
+                            <i class="fa fa-shopping-cart" style="font-size: 24px; color: #333;"></i>
+                        </a>
+                        <!-- Cart Counter -->
+                        <span id="cart-count" style="position: absolute; top: -5px; right: -10px; background-color: red; color: white; padding: 5px; border-radius: 50%; font-size: 12px;">0</span>
+                    </div>
                 </div>
+                
                 <!-- end of account icons -->
             </div>
             <!-- end of main navigation list -->
@@ -131,7 +83,7 @@
     <section class = "featured-deals bg-light-grey-color-shade py" id = "featured-deals">
         <div class = "container">
             <div class = "section-title text-center">
-                <h2>featured deals</h2>
+                <h2>Check Our Products</h2>
                 <p class = "lead">Here you can check out our products with fair price on Shri.</p>
                 <div class = "line"></div>
             </div>
@@ -150,6 +102,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Decor For Drawing Room', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
 
@@ -166,6 +122,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
 
@@ -179,6 +139,10 @@
                         <div class = "price">
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
                         </div>
                     </div>
                 </div>
@@ -194,6 +158,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
                 <div class = "featured-deals-item">
@@ -206,6 +174,10 @@
                         <div class = "price">
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
                         </div>
                     </div>
                 </div>
@@ -221,6 +193,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
 
@@ -234,6 +210,10 @@
                         <div class = "price">
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
                         </div>
                     </div>
                 </div>
@@ -249,6 +229,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
                 <div class = "featured-deals-item">
@@ -261,6 +245,10 @@
                         <div class = "price">
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
                         </div>
                     </div>
                 </div>
@@ -276,6 +264,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
 
@@ -289,6 +281,10 @@
                         <div class = "price">
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
                         </div>
                     </div>
                 </div>
@@ -304,6 +300,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
                 <div class = "featured-deals-item">
@@ -316,6 +316,10 @@
                         <div class = "price">
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
                         </div>
                     </div>
                 </div>
@@ -331,6 +335,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
 
@@ -344,6 +352,10 @@
                         <div class = "price">
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
                         </div>
                     </div>
                 </div>
@@ -359,6 +371,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
                 <div class = "featured-deals-item">
@@ -371,6 +387,10 @@
                         <div class = "price">
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
                         </div>
                     </div>
                 </div>
@@ -386,6 +406,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
 
@@ -400,6 +424,10 @@
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
                         </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
+                        </div>
                     </div>
                 </div>
 
@@ -413,28 +441,32 @@
                         <div class = "price">
                             <span class = "old text-grey">$ 50.00</span>
                             <span class = "new text-brown">$ 35.00</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Item 1', '$20.00')">Add to Cart</button>
+                            <button class="buy-btn">Buy Now</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <nav aria-label="...">
-                <ul class="pagination">
-                  <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">2</a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                  </li>
-                </ul>
-              </nav>
         </div>
     </section>
+    <script>
+        function addToCart(itemName, itemPrice) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.push({ name: itemName, price: itemPrice });
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            updateCartCount();
+        }
+        function updateCartCount() {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            document.getElementById('cart-count').textContent = cartItems.length;
+        }
+        window.onload = function() {
+            updateCartCount();
+        }
+    </script>
     <!-- end of featured deals section -->
 
 
@@ -490,24 +522,9 @@
             </div>
         </div>
 
-        <div class = "footer-end bg-dark">
-            <div class = "container grid">
-                <p class = "text text-white text-center">&copy; Copyright 2021. All Right Reserved. Designed and Developed by Kawsar Ahmed</p>
-                <div class = "flex payment">
-                    <img src = "images/pay_1.png">
-                    <img src = "images/pay_2.png">
-                    <img src = "images/pay_3.png">
-                    <img src = "images/pay_4.png">
-                    <img src = "images/pay_5.png">
-                </div>
-            </div>
-        </div>
-    </footer>
+       
     <!-- end of footer -->
 
-  
-    <!-- custom js -->
-    <script src = "js/script.js"></script>
 
 </body>
 </html>
