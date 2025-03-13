@@ -4,41 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart</title>
+    
+    <script src="https://js.stripe.com/v3/"></script> <!-- Stripe JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h3 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        #cart-items {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
         .cart-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item p {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #555;
+        }
+
         .remove-btn {
-            background-color: red;
+            background-color: #e74c3c;
             color: white;
             border: none;
             cursor: pointer;
-            padding: 5px;
+            padding: 8px 12px;
             border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         .remove-btn:hover {
-            background-color: #ff4d4d;
+            background-color: #c0392b;
+            transform: scale(1.05);
         }
-        .checkout-btn {
-            background-color: #f1ab40;
+
+        .quantity-btn {
+            background-color: #3498db;
             color: white;
-            padding: 10px;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            margin: 0 10px;
+        }
+
+        .quantity-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .checkout-btn {
+            background-color: #db7c34;
+            color: white;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
+            font-size: 1.2rem;
             cursor: pointer;
+            width: 100%;
+            max-width: 600px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         .checkout-btn:hover {
-            background-color: #fa9b0b;
+            background-color: #b98429;
+            transform: scale(1.05);
+        }
+
+        .empty-cart-message {
+            text-align: center;
+            color: #777;
+            font-size: 1.1rem;
+            padding: 20px 0;
+        }
+
+        .total-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h3>Your Cart</h3>
-    <ul id="cart-items">
-        <!-- Cart items will be dynamically added here -->
-    </ul>
-    <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+    <div>
+        <h3>Your Cart</h3>
+        <ul id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </ul>
+        <div class="total-price" id="total-price">
+            <!-- Total price will be displayed here -->
+        </div>
+        <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+    </div>
 
     <script>
         // Retrieve cart items from localStorage
@@ -46,53 +138,83 @@
             return JSON.parse(localStorage.getItem('cartItems')) || [];
         }
 
-        // Display items in the cart
+        // Display cart items with quantity controls and update total price
         function displayCart() {
             const cartItems = getCartItems();
             const cartItemsList = document.getElementById('cart-items');
+            let totalPrice = 0;
 
-            // Clear the list before adding updated items
-            cartItemsList.innerHTML = '';
+            cartItemsList.innerHTML = '';  // Clear the previous cart content
 
             if (cartItems.length === 0) {
-                cartItemsList.innerHTML = '<li>Your cart is empty!</li>';
+                cartItemsList.innerHTML = '<li class="empty-cart-message">Your cart is empty!</li>';
+                document.getElementById('total-price').innerHTML = '';
             } else {
                 cartItems.forEach((item, index) => {
-                    const li = document.createElement('li');
-                    li.classList.add('cart-item');
-                    li.innerHTML = `${item.name} - ${item.price} <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>`;
-                    cartItemsList.appendChild(li);
-                });
+    item.quantity = item.quantity || 1;
+
+    // Extract numeric value from price string (e.g., "NRP 3000" → 3000)
+    const priceNumber = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+    const itemTotal = priceNumber * item.quantity;
+    totalPrice += itemTotal;
+
+    // Update the displayed price to include "NRP" (optional)
+    const displayPrice = `NRP ${priceNumber}`;
+
+    const li = document.createElement('li');
+    li.classList.add('cart-item');
+    li.innerHTML = `
+        <p>${item.name} - ${displayPrice}</p>
+        <div>
+            <button class="quantity-btn" onclick="changeQuantity(${index}, 'decrease')">-</button>
+            <span class="quantity-number">${item.quantity}</span>
+            <button class="quantity-btn" onclick="changeQuantity(${index}, 'increase')">+</button>
+            <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+        </div>
+    `;
+    cartItemsList.appendChild(li);
+});
+
+                // Update total price
+                document.getElementById('total-price').textContent = `Total: NRP ${totalPrice}`;
             }
         }
 
         // Remove item from the cart
         function removeFromCart(index) {
             let cartItems = getCartItems();
-            cartItems.splice(index, 1);  // Remove item at the specified index
+            cartItems.splice(index, 1);  // Remove the item at the specified index
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
             displayCart();  // Re-display updated cart
-            updateCartCount();  // Update the cart count in the navbar
         }
 
-        // Update the cart count in the navbar
-        function updateCartCount() {
+        // Change quantity of an item
+        function changeQuantity(index, action) {
             let cartItems = getCartItems();
-            const cartCount = document.getElementById('cart-count');
-            if (cartCount) {
-                cartCount.textContent = cartItems.length;  // Update count in navbar (if exists)
+            const item = cartItems[index];
+
+            // Ensure quantity is a valid number
+            item.quantity = item.quantity || 1;
+
+            if (action === 'increase') {
+                item.quantity++;
+            } else if (action === 'decrease' && item.quantity > 1) {
+                item.quantity--;
             }
+
+            // Recalculate total price after quantity change
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            displayCart();  // Re-display updated cart with new total price
         }
 
         // Initialize the cart on page load
         window.onload = function() {
             displayCart();
-            updateCartCount();  // Update the cart count in the navbar
         }
 
-        // Checkout functionality (just an alert here, you can add real checkout logic)
+        // Proceed to checkout button
         document.getElementById('checkout-btn').addEventListener('click', function() {
-            alert('Proceeding to checkout...');
+            window.location.href ='payement.html';
         });
     </script>
 </body>
