@@ -3,7 +3,7 @@ session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "seedtoseason";
+$dbname = "ShriOnlineFurniture";
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
@@ -29,12 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['email'] = $d['email'];  // Store email in session
 
         // Redirect to products page
-        header('Location: products.html');
+        header('Location: shop.html');
         exit();
     } else {
         // If email or password doesn't match, redirect to signup page
         echo "<script>alert('Email or Password is incorrect. Please try again.');</script>";
-        header('Location: signup.html');
         exit();
     }
 
