@@ -85,9 +85,8 @@ h1, h2, h3, h4{
 }
 .navbar-nav{
     display: none;
-    gap: 10px;
     align-items: center;
-    margin-left: -90px;
+    margin-left: -250px;
 }
 .account-info{
     display: -webkit-box;
