@@ -258,7 +258,7 @@ input {
 	</div>
 	<div class="form-container sign-in-container">
 		
-		<form name="f1" action="signin.php" onsubmit="return valid()" >
+		<form name="f1" action="signin.php" method="post" onsubmit="return valid()" >
 			<h1>Login Here:</h1>
 			<input type="email" placeholder="Email" name="email"  required/>
 			<input type="password" placeholder="Password" name="password" required />
@@ -324,16 +324,8 @@ signInButton.addEventListener('click', () => {
 	  // Check if the email or password fields are empty
 	  if (email.length === "" || password.length === "") {
 		alert("Email and Password fields are required.");
-		return false; // Prevent form submission
+		return false; 
 	  }
-
-	  // Check if the confirm password matches the password
-	  if (password !== confirmPassword) {
-		alert("Passwords do not match!");
-		return false; // Prevent form submission
-	  }
-
-	  // If all validations pass, return true
 	  return true;
 	}
   </script>
