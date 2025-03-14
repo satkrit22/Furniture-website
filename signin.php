@@ -1,44 +1,46 @@
 <?php
-session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "ShriOnlineFurniture";
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
+
 // Check connection
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
-} 
-
-// Check if the form is submitted for login
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Prepare the SQL query to check if the email and password exist in the database
-    $sql = "SELECT Email, password FROM users WHERE Email = ? AND password =?";
-    $stmt = $conn->prepare($sql);  // Prepare the SQL statement
-    $stmt->bind_param("ss", $email, $password);  // Bind email and password parameters
-    $stmt->execute();  // Execute the query
-    $result = $stmt->get_result();  // Get the result set
-
-    if ($result->num_rows > 0) {
-        // If email and password match, store the session
-        $d = $result->fetch_assoc();
-        $_SESSION['email'] = $d['email'];  // Store email in session
-
-        // Redirect to products page
-        header('Location: shop.html');
-        exit();
-    } else {
-        // If email or password doesn't match, redirect to signup page
-        echo "<script>alert('Email or Password is incorrect. Please try again.');</script>";
-        exit();
-    }
-
-    $stmt->close();
 }
 
-$conn->close();
+// Assuming you have already retrieved the email and password from POST request
+$email = $_POST['email'];
+$password = $_POST['password'];
+
+// Prepare the query to fetch user details based on email
+$sql = "SELECT * FROM users WHERE Email = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+
+    // Verify the password using password_verify
+    if (password_verify($password, $user['password'])) {
+        // Password is correct, start session and redirect to the dashboard or products page
+        session_start();
+        $_SESSION['email'] = $user['Email'];
+        header('Location:shop.html'); // Redirect to the user's dashboard
+    } else {
+        // Invalid password
+        echo "<script>alert('Incorrect password. Please try again.');</script>";
+    }
+} else {
+    // Email not found
+    echo "<script>alert('Email does not exist. Please sign up.');</script>";
+}
+
+$stmt->close();
+mysqli_close($conn);
 ?>

@@ -26,7 +26,7 @@
         /* Navbar styles */
         nav {
             background-color: #6d4c41;
-            padding: 15px;
+            
         }
 
         .navbar {
@@ -55,7 +55,8 @@
             display: flex;
             list-style: none;
             padding-left: 0;
-            gap: 30px; /* Added gap between Home and Shop */
+            gap: 20px; /* Added gap between Home and Shop */
+            margin-left: -100px;
         }
 
         .nav-item {
@@ -218,6 +219,15 @@
         footer .social-links a:hover {
             color: #ffa32b;
         }
+        .product-description {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+
     </style>
 </head>
 <body>
@@ -291,34 +301,33 @@
     <!-- end of navbar -->
 
     <!-- Product Section -->
-    <section class="container sproduct my-10 pt-10">
-        <div class="row mt-5 d-flex align-items-start">
-            <!-- Product Image -->
-            <div class="col-lg-5 col-md-12 col-12">
-                <img src="images/new_product_img_1.png" alt="Comfortable Sofa">
-            </div>
+    <!-- Product Section -->
+<section class="container sproduct my-10 pt-10">
+    <div class="row mt-5 d-flex align-items-start">
+        <!-- Product Image -->
+        <div class="col-lg-5 col-md-12 col-12">
+            <img src="images/computer table.jpg" alt="Computer Table">
+        </div>
 
-            <!-- Product Details -->
-            <div class="col-lg-6 col-md-12 col-12">
-                <h3>Comfortable Sofa</h3>
-                <h2>NRP 15,000</h2>
-                <label for="sofa-quantity" class="d-block my-2">Select Quantity:</label>
-                <select id="sofa-quantity" class="form-select my-2 w-auto">
-                    <option value="">Select Quantity</option>
-                    <option value="3-seater">3 Seater</option>
-                    <option value="4-seater">4 Seater</option>
-                    <option value="5-seater">5 Seater</option>
-                    <option value="6-seater">6 Seater</option>
-                </select>
-
-                <!-- Buy Now and Add to Cart Buttons -->
-                <div class="button-container">
-                    <button class="cart-btn" onclick="addToCart('Comfortable Sofa', 'NRP 15,000')">Add to Cart</button>
-                    <button class="buy-btn" onclick="buyNow('Comfortable Sofa', 'NRP 15,000')">Buy Now</button>
-                </div>
+        <!-- Product Details -->
+        <div class="col-lg-6 col-md-12 col-12">
+            <h3>Computer Table</h3>
+            <h2>NRP 6500</h2>
+            <!-- A sleek and functional Computer Table <br> designed to fit any space. <br>
+            Ideal for home offices or study rooms, 
+            featuring ample surface area and a minimalist design. <br>
+             -->
+             <p class="product-description"> A sleek & practical computer table designed <br> to optimize your workspace. Perfect for home  <br>offices or study areas, featuring a spacious  <br> surface and a contemporary, minimalist style.</p>
+            <!-- Buy Now and Add to Cart Buttons -->
+            <div class="button-container">
+                <button class="cart-btn" onclick="addToCart('Computer Table', 'NRP 6500')">Add to Cart</button>
+                <a href="cart.html">
+                <button class="buy-btn" onclick="buyNow('Computer Table', 'NRP 6500')">Buy Now</button></a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Footer -->
     <footer>
@@ -351,5 +360,6 @@
             updateCartCount();
         }
     </script>
+    
 </body>
 </html>

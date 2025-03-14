@@ -150,30 +150,33 @@
                 cartItemsList.innerHTML = '<li class="empty-cart-message">Your cart is empty!</li>';
                 document.getElementById('total-price').innerHTML = '';
             } else {
+                const fragment = document.createDocumentFragment();  // Use DocumentFragment for better performance with large number of items
+
                 cartItems.forEach((item, index) => {
-    item.quantity = item.quantity || 1;
+                    item.quantity = item.quantity || 1;
 
-    // Extract numeric value from price string (e.g., "NRP 3000" → 3000)
-    const priceNumber = parseFloat(item.price.replace(/[^0-9.]/g, ''));
-    const itemTotal = priceNumber * item.quantity;
-    totalPrice += itemTotal;
+                    // Extract numeric value from price string (e.g., "NRP 3000" → 3000)
+                    const priceNumber = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+                    const itemTotal = priceNumber * item.quantity;
+                    totalPrice += itemTotal;
 
-    // Update the displayed price to include "NRP" (optional)
-    const displayPrice = `NRP ${priceNumber}`;
+                    const displayPrice = `NRP ${priceNumber}`;
 
-    const li = document.createElement('li');
-    li.classList.add('cart-item');
-    li.innerHTML = `
-        <p>${item.name} - ${displayPrice}</p>
-        <div>
-            <button class="quantity-btn" onclick="changeQuantity(${index}, 'decrease')">-</button>
-            <span class="quantity-number">${item.quantity}</span>
-            <button class="quantity-btn" onclick="changeQuantity(${index}, 'increase')">+</button>
-            <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
-        </div>
-    `;
-    cartItemsList.appendChild(li);
-});
+                    const li = document.createElement('li');
+                    li.classList.add('cart-item');
+                    li.innerHTML = `
+                        <p>${item.name} - ${displayPrice}</p>
+                        <div>
+                            <button class="quantity-btn" onclick="changeQuantity(${index}, 'decrease')">-</button>
+                            <span class="quantity-number">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="changeQuantity(${index}, 'increase')">+</button>
+                            <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                        </div>
+                    `;
+                    fragment.appendChild(li);
+                });
+
+                cartItemsList.appendChild(fragment);  // Append all items at once to improve performance
 
                 // Update total price
                 document.getElementById('total-price').textContent = `Total: NRP ${totalPrice}`;
@@ -214,7 +217,7 @@
 
         // Proceed to checkout button
         document.getElementById('checkout-btn').addEventListener('click', function() {
-            window.location.href ='payement.html';
+            window.location.href = 'payement.html';
         });
     </script>
 </body>
