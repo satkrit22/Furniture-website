@@ -318,34 +318,17 @@ h1, h2, h3, h4{
 /* footer */
 .footer-content{
     gap: 8rem;
-    margin-left: 300px;
+    margin-left: 100px;
    
 }
 .footer-item .text{
     line-height: 1.8;
     font-size: 1.4rem;
     margin-bottom: 1rem;
-    align-items: center;
 }
 .footer-item h3{
     margin-bottom: 3rem;
     font-size: 2.1rem;
-}
-.social-links{
-    margin-top: 2rem;
-}
-.social-links li a{
-    width: 23px;
-    height: 23px;
-    border: 2px solid var(--dark-color);
-    margin: .25rem;
-    -webkit-transition: var(--transition);
-    -o-transition: var(--transition);
-    transition: var(--transition);
-}
-.social-links li a:hover{
-    background-color: var(--dark-color);
-    color: var(--white-color);
 }
 .footer-end{
     min-height: 6.7rem;
