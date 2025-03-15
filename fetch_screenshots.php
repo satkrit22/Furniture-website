@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "payment_screenshots";
+$dbname = "ShriOnlineFurniture";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

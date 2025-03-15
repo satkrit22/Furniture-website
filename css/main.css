@@ -69,7 +69,7 @@ h1, h2, h3, h4{
             justify-content: space-between;
     width: 100%;
     gap: 50px;
-    margin-left: 150px;
+    margin-left: 250px;
 }
 .toggler-and-category{
     -webkit-box-pack: justify;

@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "payment_screenshots";
+$dbname = "ShriOnlineFurniture";
 
 // Get screenshot ID from URL parameter
 $id = $_GET['id'] ?? null;

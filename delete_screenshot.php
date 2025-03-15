@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "payment_screenshots";
+$dbname = "ShriOnlineFurniture";
 
 // Get the POSTed data (ID of screenshot to delete)
 $data = json_decode(file_get_contents('php://input'), true);
