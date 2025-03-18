@@ -26,14 +26,69 @@ if (isset($_FILES['payment_screenshot']) && $_FILES['payment_screenshot']['error
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        echo "File uploaded successfully!";
+        $uploadSuccess = true;
     } else {
-        echo "Error uploading file!";
+        $uploadSuccess = false;
     }
 
     $stmt->close();
     $conn->close();
 } else {
-    echo "No file uploaded or error during upload.";
+    $uploadSuccess = false;
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+    <style>
+        /* Styles for the thank-you message */
+        .thank-you-message {
+            font-size: 2em;
+            color: #fff;
+            background-color: #4CAF50;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            margin: 50px auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 1s forwards, fadeIn 2s forwards;
+        }
+
+        /* Animation for sliding up and fading in */
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<?php if ($uploadSuccess): ?>
+    <div class="thank-you-message">Thank you for uploading your payment screenshot!</div>
+<?php else: ?>
+    <div class="thank-you-message" style="background-color: #f44336;">Error uploading file or no file uploaded!</div>
+<?php endif; ?>
+
+</body>
+</html>

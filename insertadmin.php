@@ -26,7 +26,7 @@
 
     // Execute the query and check for success
     if ($stmt->execute()) {
-        echo "<script>alert('Data successfully entered');</script>";
+        echo "<script>alert('Data successfully entered'); window.location.href = 'adminform.html';</script>";
     } else {
         echo "Database error: " . $stmt->error;
     }
