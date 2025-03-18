@@ -65,6 +65,11 @@
             transform: scale(1.05);
         }
 
+        .pay-btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
         .cancel-btn {
             background-color: #e74c3c;
             color: white;
@@ -118,7 +123,7 @@
         <img src="images/qr.jpg" alt="Payment QR Code" id="payment-qr">
     </div>
 
-    <button class="pay-btn" id="pay-btn">Proceed with Payment</button>
+    <button class="pay-btn" id="pay-btn" disabled>Proceed with Payment</button>
     <button class="cancel-btn" id="cancel-btn">Cancel</button>
 
     <!-- File upload section (hidden initially) -->
@@ -131,6 +136,7 @@
 </div>
 
 <script>
+    // Function to calculate the total price from the cart items stored in localStorage
     function getTotalPrice() {
         const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         let totalPrice = 0;
@@ -142,16 +148,33 @@
         return totalPrice;
     }
 
-    document.getElementById('total-price').textContent = `Total: NRP ${getTotalPrice()}`;
+    // Fetch total price
+    const totalPrice = getTotalPrice();
+    document.getElementById('total-price').textContent = `Total: NRP ${totalPrice}`;
+
+    // Get the payment button element
+    const payBtn = document.getElementById('pay-btn');
+
+    // Disable the payment button if the total price is zero
+    if (totalPrice === 0) {
+        payBtn.disabled = true;
+        payBtn.textContent = 'Cannot Proceed - Total is Zero';
+    } else {
+        // Enable the payment button if total price is greater than zero
+        payBtn.disabled = false;
+        payBtn.textContent = 'Proceed with Payment';
+    }
 
     // Proceed to payment button click event
-    document.getElementById('pay-btn').addEventListener('click', function() {
-        // Show QR code and the file upload section
-        document.getElementById('qr-container').style.display = 'block';
-        document.getElementById('file-upload').style.display = 'block';
+    payBtn.addEventListener('click', function() {
+        if (totalPrice > 0) {
+            // Show QR code and the file upload section
+            document.getElementById('qr-container').style.display = 'block';
+            document.getElementById('file-upload').style.display = 'block';
 
-        // Hide the proceed payment button after showing the QR
-        document.getElementById('pay-btn').style.display = 'none';
+            // Hide the proceed payment button after showing the QR
+            payBtn.style.display = 'none';
+        }
     });
 
     // Cancel button to go back to the cart or any other page
