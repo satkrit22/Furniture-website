@@ -1,14 +1,35 @@
 <?php
-    $servername="localhost";
-    $username="root";
+    $servername = "localhost";
+    $username = "root";
     $password = "";
     $dbname = "ShriOnlineFurniture";
 
-    $conn = mysqli_connect($servername,$username,$password,$dbname);
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-    $query = "INSERT INTO admins (username, password_hash)
-VALUES ('admin', '<?= password_hash('your_secure_password', PASSWORD_DEFAULT) ?>')"; 
-if(mysqli_query($conn,$query)){
-        echo "<script>alert('Data successfully enterd');</script>";
-                }
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    // Admin username and password to be inserted
+    $admin_username = 'admin';
+    $admin_password = 'P@ssw0rd';
+
+    // Hash the password
+    $password_hash = password_hash($admin_password, PASSWORD_DEFAULT);
+
+    // Prepare the SQL statement
+    $stmt = $conn->prepare("INSERT INTO admins (username, password_hash) VALUES (?, ?)");
+
+    // Bind parameters
+    $stmt->bind_param("ss", $admin_username, $password_hash);
+
+    // Execute the query and check for success
+    if ($stmt->execute()) {
+        echo "<script>alert('Data successfully entered');</script>";
+    } else {
+        echo "Database error: " . $stmt->error;
+    }
+    $stmt->close();
+    $conn->close();
 ?>
