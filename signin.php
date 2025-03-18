@@ -39,7 +39,8 @@ if ($result->num_rows > 0) {
     }
 } else {
     // Email not found
-    echo "<script>alert('Email does not exist. Please sign up.');</script>";
+        
+    echo "<script>alert('Email does not exist. Please sign up.'); window.location.href = 'signup.html';</script>";
 }
 
 $stmt->close();
