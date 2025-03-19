@@ -198,6 +198,15 @@
             reader.readAsDataURL(file);
         }
     });
+    document.getElementById('cancel-btn').addEventListener('click', function() {
+    if (document.referrer) {
+        window.history.back();  // Goes back to the previous page (cart page)
+    } else {
+        // If there is no previous page, redirect to a default page (like homepage or cart)
+        window.location.href = 'cart.html';  // Change this to your desired default page
+    }
+});
+
 </script>
 
 </body>

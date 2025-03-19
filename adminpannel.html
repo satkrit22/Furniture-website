@@ -45,7 +45,7 @@
             margin: 15px 0;
         }
 
-        .nav-menu a {
+        .nav-menu a, .logout-btn {
             color: white;
             text-decoration: none;
             padding: 10px;
@@ -54,7 +54,11 @@
             transition: background-color 0.3s;
         }
 
-        .nav-menu a:hover {
+        .nav-menu a:hover, .logout-btn:hover {
+            background-color: #34495e;
+        }
+
+        .nav-menu a.active, .logout-btn.active {
             background-color: #34495e;
         }
 
@@ -115,15 +119,14 @@
         <ul class="nav-menu">
             <li><a href="#dashboard">Dashboard</a></li>
             <li><a href="#screenshots" class="active">Screenshots</a></li>
-            <li><a href="#users">Users</a></li>
-            <li><a href="adminlogout.php"> <button>Logout</button> </a></li>
-
+            <li><a href="usersadminaccess.php">Users</a></li>
+            <li><a href="adminlogout.php" class="logout-btn" onclick="logout()">Logout</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
         <div class="header" id="dashboard">
-            <h1>Uploaded Screenshots</h1>
+            <h1>Order</h1>
             <div class="user-info">
                 Welcome, Admin
             </div>
@@ -133,10 +136,12 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Screenshot ID</th>
-                        <th>Screenshot</th>
-                        <th>Uploaded At</th>
-                        <th>Actions</th>
+                        <th>Order ID</th>
+                        <th>Email</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody id="screenshot-list">
@@ -198,6 +203,13 @@
 
         // Initial load
         window.onload = fetchScreenshots;
+
+        // Logout function
+        function logout() {
+            if (confirm("Are you sure you want to logout?")) {
+                window.location.href = "adminlogout.php"; // Redirect to logout page
+            }
+        }
 
         // Navigation handling
         document.querySelectorAll('.nav-menu a').forEach(link => {
