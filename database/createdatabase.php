@@ -4,7 +4,7 @@ $username = "root";
 $password = "";
 
 $conn = mysqli_connect($servername, $username, $password);
-$sql = "CREATE DATABASE furniture";
+$sql = "CREATE DATABASE comtech";
 $result=mysqli_query($conn,$sql);
 if(!$result) {
   echo "Database error";

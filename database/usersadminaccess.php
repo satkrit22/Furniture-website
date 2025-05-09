@@ -1,9 +1,9 @@
 <?php
 // Database connection
 $servername = "localhost";
-$username = "root"; // Default MySQL username
-$password = "";     // Default MySQL password is empty
-$dbname = "user_db";
+$username = "root"; 
+$password = "";     
+$dbname = "comtech";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

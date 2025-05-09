@@ -2,7 +2,7 @@
     $servername="localhost";
     $username="root";
     $password = "";
-    $dbname = "ShriOnlineFurniture";
+    $dbname = "furniture";
 
     $conn = mysqli_connect($servername,$username,$password,$dbname);
 

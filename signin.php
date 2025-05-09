@@ -1,48 +1,83 @@
 <?php
+// Start session
 session_start();
+
+// Database connection
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ShriOnlineFurniture";
+$username = "root"; // Change to your database username
+$password = ""; // Change to your database password
+$dbname = "furniture"; // Change to your database name
 
 // Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Assuming you have already retrieved the email and password from POST request
-$email = $_POST['email'];
-$password = $_POST['password'];
-
-// Prepare the query to fetch user details based on email
-$sql = "SELECT * FROM users WHERE Email = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc();
-
-    // Verify the password using password_verify
-    if (password_verify($password, $user['password'])) {
-        // Password is correct, start session and redirect to the dashboard or products page
-        session_start();
-        $_SESSION['email'] = $user['Email'];
-        header('Location:shop.html'); // Redirect to the user's dashboard
-    } else {
-        // Invalid password
-        echo "<script>alert('Incorrect password. Please try again.');</script>";
+// Process form data when form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    
+    // Validate email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email format";
+        exit();
     }
-} else {
-    // Email not found
+    
+    // Prepare a select statement
+    $sql = "SELECT id, name, email, password FROM users WHERE email = ?";
+    
+    if ($stmt = $conn->prepare($sql)) {
+        // Bind variables to the prepared statement as parameters
+        $stmt->bind_param("s", $email);
         
-    echo "<script>alert('Email does not exist. Please sign up.'); window.location.href = 'signup.html';</script>";
+        // Execute the prepared statement
+        if ($stmt->execute()) {
+            // Store result
+            $stmt->store_result();
+            
+            // Check if email exists
+            if ($stmt->num_rows == 1) {
+                // Bind result variables
+                $stmt->bind_result($id, $name, $email, $hashed_password);
+                
+                if ($stmt->fetch()) {
+                    // Verify password
+                    if (password_verify($password, $hashed_password)) {
+                        // Password is correct, start a new session
+                        session_start();
+                        
+                        // Store data in session variables
+                        $_SESSION["loggedin"] = true;
+                        $_SESSION["id"] = $id;
+                        $_SESSION["name"] = $name;
+                        $_SESSION["email"] = $email;
+                        
+                        // Redirect to welcome page
+                        header("location: dashboard.php");
+                        exit();
+                    } else {
+                        // Password is not valid
+                        echo "Invalid password";
+                    }
+                }
+            } else {
+                // Email doesn't exist
+                echo "No account found with that email";
+            }
+        } else {
+            echo "Oops! Something went wrong. Please try again later.";
+        }
+        
+        // Close statement
+        $stmt->close();
+    }
 }
 
-$stmt->close();
-mysqli_close($conn);
+// Close connection
+$conn->close();
 ?>

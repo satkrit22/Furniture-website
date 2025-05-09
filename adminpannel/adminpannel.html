@@ -45,7 +45,7 @@
             margin: 15px 0;
         }
 
-        .nav-menu a {
+        .nav-menu a, .logout-btn {
             color: white;
             text-decoration: none;
             padding: 10px;
@@ -54,7 +54,11 @@
             transition: background-color 0.3s;
         }
 
-        .nav-menu a:hover {
+        .nav-menu a:hover, .logout-btn:hover {
+            background-color: #34495e;
+        }
+
+        .nav-menu a.active, .logout-btn.active {
             background-color: #34495e;
         }
 
@@ -113,17 +117,16 @@
     <nav class="sidebar">
         <div class="logo">Admin Panel</div>
         <ul class="nav-menu">
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#screenshots" class="active">Screenshots</a></li>
-            <li><a href="#users">Users</a></li>
-            <li><a href="adminlogout.php"> <button>Logout</button> </a></li>
-
+            <li><a href="admincreateproduct.php">Create Product</a></li>
+            <li><a href="orderindex.php" class="active">Order</a></li>
+            <li><a href="usersadminaccess.php">Users</a></li>
+            <li><a href="adminlogout.php" class="logout-btn" onclick="logout()">Logout</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
         <div class="header" id="dashboard">
-            <h1>Uploaded Screenshots</h1>
+            <h1>Order</h1>
             <div class="user-info">
                 Welcome, Admin
             </div>
@@ -133,10 +136,12 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Screenshot ID</th>
-                        <th>Screenshot</th>
-                        <th>Uploaded At</th>
-                        <th>Actions</th>
+                        <th>Order ID</th>
+                        <th>Email</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody id="screenshot-list">
@@ -146,67 +151,6 @@
         </div>
     </main>
 
-    <script>
-        // Fetch and display screenshots
-        function fetchScreenshots() {
-            fetch('fetch_screenshots.php')
-                .then(response => response.json())
-                .then(data => {
-                    const tableBody = document.getElementById('screenshot-list');
-                    tableBody.innerHTML = '';
-
-                    data.forEach(item => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${item.id}</td>
-                            <td><img src="view_screenshot.php?id=${item.id}" alt="${item.screenshot_name}"></td>
-                            <td>${item.uploaded_at}</td>
-                            <td><button class="delete-btn" onclick="deleteScreenshot(${item.id})">Delete</button></td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching screenshots:', error);
-                });
-        }
-
-        // Delete screenshot function
-        function deleteScreenshot(id) {
-            if (confirm('Are you sure you want to delete this screenshot?')) {
-                fetch('delete_screenshot.php', {
-                    method: 'POST',
-                    body: JSON.stringify({ id: id }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Screenshot deleted successfully!');
-                        fetchScreenshots();
-                    } else {
-                        alert('Error deleting screenshot!');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error deleting screenshot:', error);
-                });
-            }
-        }
-
-        // Initial load
-        window.onload = fetchScreenshots;
-
-        // Navigation handling
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Add navigation logic here
-                console.log(`Navigating to: ${this.getAttribute('href')}`);
-            });
-        });
-    </script>
+    
 </body>
 </html>
