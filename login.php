@@ -71,8 +71,8 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #6c5ce7;
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+            border-color:rgb(244, 128, 51);
+            box-shadow: 0 0 0 3px rgba(231, 161, 92, 0.2);
         }
 
         .form-footer {
@@ -83,7 +83,7 @@
         }
 
         .form-footer a {
-            color: #6c5ce7;
+            color:rgb(231, 166, 92);
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
@@ -112,7 +112,7 @@
             padding: 12px;
             border: none;
             border-radius: 50px;
-            background-color: #6c5ce7;
+            background-color:rgb(231, 157, 92);
             color: #fff;
             font-size: 16px;
             font-weight: 600;
@@ -122,14 +122,14 @@
         }
 
         .btn:hover {
-            background-color: #5649c0;
+            background-color:rgb(192, 138, 73);
             transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(108, 92, 231, 0.2);
+            box-shadow: 0 7px 14px rgb(231, 166, 92);
         }
 
         .btn:active {
             transform: translateY(0);
-            box-shadow: 0 3px 8px rgba(108, 92, 231, 0.2);
+            box-shadow: 0 3px 8px rgba(231, 175, 92, 0.85);
         }
 
         .signup-link {
@@ -140,7 +140,7 @@
         }
 
         .signup-link a {
-            color: #6c5ce7;
+            color:rgb(231, 178, 92);
             text-decoration: none;
             font-weight: 500;
         }
@@ -177,19 +177,13 @@
                 <div id="password-error" class="error-message"></div>
             </div>
 
-            <div class="form-footer">
-                <div class="checkbox-container">
-                    <input type="checkbox" id="remember" name="remember">
-                    <label for="remember">Remember me</label>
-                </div>
-                <a href="forgot-password.php">Forgot Password?</a>
-            </div>
+            
 
             <button type="submit" class="btn">Login</button>
         </form>
 
         <div class="signup-link">
-            Don't have an account? <a href="signup.php">Sign up</a>
+            Don't have an account? <a href="logup.php">Sign up</a>
         </div>
     </div>
 

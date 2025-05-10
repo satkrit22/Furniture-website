@@ -4,7 +4,7 @@ session_start();
 
 // Database connection
 $servername = "localhost";
-$username = "root"; // Change to your database username
+$username = "root";
 $password = ""; // Change to your database password
 $dbname = "furniture"; // Change to your database name
 
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Prepare a select statement
     $sql = "SELECT id, name, email, password FROM users WHERE email = ?";
-    
+
     if ($stmt = $conn->prepare($sql)) {
         // Bind variables to the prepared statement as parameters
         $stmt->bind_param("s", $email);
@@ -49,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Verify password
                     if (password_verify($password, $hashed_password)) {
                         // Password is correct, start a new session
-                        session_start();
                         
                         // Store data in session variables
                         $_SESSION["loggedin"] = true;
@@ -57,8 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $_SESSION["name"] = $name;
                         $_SESSION["email"] = $email;
                         
-                        // Redirect to welcome page
-                        header("location: dashboard.php");
+                        // Redirect to shop page
+                        header("location: shop.php");
                         exit();
                     } else {
                         // Password is not valid

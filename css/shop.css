@@ -4,7 +4,7 @@
 :root{
     --poppins-font: 'Poppins', sans-serif;
     --transition: all 300ms ease-in-out;
-    --brown-color: #ffffff;
+    --brown-color: #ff6a00;
     --dark-color: #222;
     --light-brown-color: #f0d2ab;
     --light-grey-color: #977d7d;
@@ -51,11 +51,6 @@ h1, h2, h3, h4{
     margin-top: 0;
     line-height: 1.2;
 }
-
-
-/* navbar */
-
-
 .navbar{
     height: 80px;
     position: fixed;
@@ -114,7 +109,7 @@ h1, h2, h3, h4{
     top: -8px;
     right: -8px;
     background-color: red;
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 12px;
     font-weight: bold;
     border-radius: 50%;
@@ -130,7 +125,7 @@ h1, h2, h3, h4{
 }
 
 .cart-btn, .buy-btn {
-    padding: 10px 20px;
+    padding: 7px 10px;
     font-size: 16px;
     font-weight: bold;
     border: none;
@@ -138,11 +133,9 @@ h1, h2, h3, h4{
     border-radius: 5px;
     transition: 0.3s ease-in-out;
 }
-
-/* Add to Cart Button */
 .cart-btn {
     background-color: #ff9800;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .cart-btn:hover {
@@ -154,10 +147,9 @@ h1, h2, h3, h4{
     background-color: #d17700;
     transform: scale(0.98);
 }
-/* Buy Now Button */
 .buy-btn {
     background-color: #ff5722;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .buy-btn:hover {

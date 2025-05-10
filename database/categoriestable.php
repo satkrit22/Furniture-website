@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "comtech";
+$dbname = "furniture";
 
 // Establishing connection to the database
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -20,7 +20,7 @@ $query = "CREATE TABLE categories (
 
 // Execute the query and check for success
 if (mysqli_query($conn, $query)) {
-    echo "<script>alert('Categories table created successfully'); window.location.href = '/comtech/home.html';</script>";
+    echo "<script>alert('Categories table created successfully'); window.location.href = '/Furniture-website/home.html';</script>";
 } else {
     echo "Error creating table: " . mysqli_error($conn);
 }

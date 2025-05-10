@@ -72,8 +72,8 @@
 
         .form-control:focus {
             outline: none;
-            border-color: #6c5ce7;
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+            border-color:rgb(231, 161, 92);
+            box-shadow: 0 0 0 3px rgba(231, 175, 92, 0.2);
         }
 
         .form-row {
@@ -90,7 +90,7 @@
             padding: 12px;
             border: none;
             border-radius: 50px;
-            background-color: #6c5ce7;
+            background-color:rgb(231, 180, 92);
             color: #fff;
             font-size: 16px;
             font-weight: 600;
@@ -101,14 +101,14 @@
         }
 
         .btn:hover {
-            background-color: #5649c0;
+            background-color:rgb(192, 140, 73);
             transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(108, 92, 231, 0.2);
+            box-shadow: 0 7px 14px rgba(231, 161, 92, 0.2);
         }
 
         .btn:active {
             transform: translateY(0);
-            box-shadow: 0 3px 8px rgba(108, 92, 231, 0.2);
+            box-shadow: 0 3px 8px rgba(231, 152, 92, 0.2);
         }
 
         .login-link {
@@ -119,7 +119,7 @@
         }
 
         .login-link a {
-            color: #6c5ce7;
+            color:rgb(231, 159, 92);
             text-decoration: none;
             font-weight: 500;
         }
@@ -143,7 +143,7 @@
         }
 
         .terms a {
-            color: #6c5ce7;
+            color:rgb(231, 173, 92);
             text-decoration: none;
         }
 
@@ -190,9 +190,6 @@
             </div>
             <div id="password-error" class="error-message"></div>
 
-            <div class="terms">
-                By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-            </div>
 
             <button type="submit" class="btn">Create Account</button>
         </form>

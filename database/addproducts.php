@@ -1,43 +1,34 @@
 <?php
-require 'connectdatabase.php'; // make sure $conn is defined here
-
+require 'connectdatabase.php'; 
 $products = [
-    ['Link PC', 'Basic Thin client device for everyday tasks', 10500, 'menu-item-1.jpg', 200, 'Link PC'],
-    ['Link PC+', 'Thin client device for everyday tasks with better performance', 13500, 'menu-item-1.jpg', 150, 'Link PC'],
-    ['Laptop Cooler', 'Cooling pad for laptops', 1500, 'menu-item-6.jpg', 30, 'Laptop & Accessories'],
-    ['Mouse', 'Standard optical USB mouse', 1500, 'menu-item-4.png', 25, 'Computer Accessories'],
-    ['Clamper', 'Cable organizer clamp', 1300, 'menu-item-5.jpg', 50, 'Computer Accessories'],
-    ['Keyboard', 'Wired USB keyboard', 3200, 'menu-item-3.jpg', 10, 'Computer Accessories'],
-    ['Normal Server', 'Entry-level server system', 90500, 'prod-445355-desktop-optiplex-7010-sff-inspiron-3020-no-odd-800x620.png', 18, 'Link PC'],
-    ['Network Cable', 'High-quality Ethernet cable', 19500, 'DHU7060_DH-PFM920I-5EUN_product-image_1.png', 12, 'Link PC'],
-    ['Solid State Drive 128GB', '128GB SATA SSD storage', 2200, 'DAHUA-SATA-256GB-3 (1).png', 25, 'Computer Accessories'],
-    ['Dell Monitor', 'Dell 18.5-inch HD monitor', 15500, 'Dell-D1918H.jpg', 22, 'Computer Accessories'],
-    ['Dell Keyboard & Mouse', 'Dell wired keyboard & mouse combo', 3200, 'kb216-ms116-kbm-01-bk-1.png', 16, 'Computer Accessories'],
-    ['Power Supply', 'Standard 350W power supply unit', 1500, 'FSP350-60EPN80-lg__34378.jpg', 8, 'Computer Accessories'],
-    ['External Harddisk 1TB', '1TB external storage device', 5700, '5e47a7e207605426186502e15be08e22.jpg', 14, 'Computer Accessories'],
-    ['Dell Inspirion 3430', 'Dell Inspirion laptop model 3430', 90000, '3430_.jpg', 1, 'Laptop & Accessories'],
-    ['NVME SSD 128GB', '128GB high-speed NVME SSD', 3000, 'HP_1TB_SSD.jpg', 7, 'Computer Accessories'],
-    ['Headphone', 'Wired over-ear headphones', 1500, '84cf6d5739a034f0b28023fb91453a2e.jpg', 9, 'Laptop & Accessories'],
-    ['Caddy', 'Laptop HDD/SSD mounting caddy', 500, 'hdd_caddy_1.jpg', 20, 'Computer Accessories'],
-    ['Wifi Dongle', 'USB wireless network adapter', 500, '4050158915.jpg', 11, 'Computer Accessories'],
-    ['Ethernet Adapter', 'USB to Ethernet network adapter', 800, '71-E1Mu48WL._AC_SL1500_.jpg', 13, 'Computer Accessories'],
-    ['CPU Fan', 'Cooling fan for processors', 500, 'main-qimg-a372bdcb21705db51641bf33a8c4dc72-lq.jpeg', 6, 'Computer Accessories'],
-    ['HDMI to VGA Converter', 'HDMI to VGA video converter', 500, 'hdmi.jpg', 27, 'Computer Accessories']
+    ['Study Table', 'A versatile study table designed for modern workspaces, featuring ample surface area and storage options for books and gadgets.', 500, 'small study table.jpg', 200, 'ALL'],
+    ['Dining Table', 'A sleek and sturdy dining table that provides a perfect spot for family meals, made from premium materials for durability.', 20000, 'dining table.jpeg', 150, 'Kitchen'],
+    ['Aquarium Stand', 'A stable and stylish aquarium stand that accommodates small to medium-sized tanks, designed for both aesthetics and functionality.', 1500, 'aquorium.jpg', 30, 'ALL'],
+    ['Gaming Chair', 'An ergonomic gaming chair designed for long gaming sessions, featuring adjustable armrests and a comfortable reclining function.', 15500, 'gaming chair.webp', 25, 'ALL'],
+    ['Comfortable chair', 'A compact and comfortable chair perfect for long hours of sitting, with padded seating and supportive backrest.', 5500, 'new_product_img_1.png', 50, 'ALL'],
+    ['Chaise Longue', 'A luxurious chaise longue for relaxation, with a sleek design and soft cushioning, ideal for lounging or reading.', 3000, 'featured_deals_img_2.png', 10, 'Drawing Room'],
+    ['Cupboard', 'A spacious and functional cupboard that provides ample storage space, perfect for organizing clothes and accessories in any room.', 17500, 'featured_deals_img_3.png', 18, 'Kitchen'],
+    ['Wood Bar Stool', 'A high-quality wood bar stool with a comfortable seat, perfect for home bars or kitchen counters.', 1000, 'featured_deals_img_4.png', 12, 'Kitchen'],
+    ['Sofa', 'A plush sofa designed for comfort and style, featuring high-density foam cushions and soft upholstery for your living room.', 19000, 'featured_deals_img_1.png', 25, 'Drawing Room'],
+    ['BedRoom Decoration', 'A decorative set for your bedroom that includes stylish accessories like lamps, vases, and frames to add personality to your space.', 2500, 'new_product_img_2.png', 22, 'Drawing Room'],
+    ['Decor for Drawing Room', 'A complete set of decorative items for your drawing room, including elegant furniture and eye-catching art pieces to enhance your living space.', 500, 'new_product_img_4.png', 16, 'Drawing Room'],
+    ['Sofa With Table', 'A compact sofa set with a built-in coffee table, perfect for smaller living rooms or apartments, offering both style and practicality.', 35500, 'sofa with table.png', 8, 'ALL'],
+    ['Computer Table', 'A modern computer table with a minimalist design, perfect for both office and home use. Includes a dedicated area for a keyboard and mouse.',6500, 'computer table.jpg', 14, 'ALL'],
+    ['Center Table', 'A sophisticated center table with a glass top and a sleek design that complements any living room or office setup.', 3500, 'center table.webp', 12, 'Drawing Room'],
+    ['Bed', 'A luxurious bed with a sturdy frame and a plush mattress, designed for maximum comfort and durability for a restful sleep.', 3500, 'bed.jpg', 7, 'ALL'],
+    ['Shelf Tower', 'A stylish shelf tower that provides ample storage for books, decorations, and small appliances, ideal for any room in the house.', 7500, 'shelf.jpg', 9, 'Drawing Room'],
+    ['Makeup Table', 'A practical and elegant makeup table with a large mirror, designed to keep your beauty essentials organized and easily accessible.', 6500, 'makeuo Table.jpg', 20, 'Kitchen'],
+    ['Office Chair', 'An ergonomic office chair with adjustable height and lumbar support, ideal for long hours of work or study at your desk.', 6500, 'office chair.webp', 11, 'ALL'],
+    ['Cloth Cupboard', 'A durable cloth cupboard that offers quick and easy storage for clothes, shoes, and other essentials, perfect for small spaces.', 12500, 'clothvupboard.webp', 13, 'ALL'],
+    ['Single Bed', 'A comfortable and compact single bed, ideal for children’s rooms or guest rooms, with a sturdy frame and comfortable mattress.', 1500, 'single bed.jpg', 6, 'ALL'],
 ];
-
-// First, get category IDs from the categories table
 $category_ids = [];
 $result = $conn->query("SELECT id, name FROM categories");
 while ($row = $result->fetch_assoc()) {
     $category_ids[$row['name']] = $row['id'];
 }
-
-// Update your statement to include the description (second item)
 $stmt = $conn->prepare("INSERT INTO products (name, description, price, image, stock, category_id) VALUES (?, ?, ?, ?, ?, ?)");
-
 $stmt->bind_param("ssisis", $name, $description, $price, $image, $stock, $category_id);
-
-// Insert each product
 foreach ($products as $product) {
     $name = $product[0];
     $description = $product[1];

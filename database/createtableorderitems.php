@@ -2,10 +2,8 @@
     $servername="localhost";
     $username="root";
     $password = "";
-    $dbname = "comtech";
-
+    $dbname = "furniture";
     $conn = mysqli_connect($servername,$username,$password,$dbname);
-
     $query = "CREATE TABLE order_items (
         id INT AUTO_INCREMENT PRIMARY KEY,
         order_id INT NOT NULL,
@@ -18,6 +16,6 @@
     
     
 if(mysqli_query($conn,$query)){
-        echo "<script>alert('Data successfully enterd'); window.location.href = '/comtech/home.html'; </script>";
+        echo "<script>alert('Data successfully enterd'); window.location.href = '/Furniture-website/home.html'; </script>";
                 }
 ?>

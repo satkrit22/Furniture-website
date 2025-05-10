@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost", "root", "", "comtech");
+$conn = new mysqli("localhost", "root", "", "furniture");
 if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error); }
 
 // Check if user is logged in
