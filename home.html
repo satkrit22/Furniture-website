@@ -25,7 +25,7 @@
 
                 <!-- main navigation list -->
                 <div class = "navbar-collapse flex"> 
-                    <li style="list-style-type: none; margin-right: 1100px;">
+                    <li style="list-style-type: none; margin-right: 900px;">
                      <a href="home.html">   <img src="images/shri_online_furniture-removebg-preview.png" alt="Logo" style="height: 80px; width: auto; margin-left: -170px;">
                      </a> </li>
                     
@@ -55,9 +55,36 @@
 
                     <!-- account icons -->
                     <div class="nav-icons">
-                        <a href="login.php" style="margin-right: 20px; text-decoration: none;">
-                            <i class="fa fa-user" style="font-size: 24px; color: #333;"></i>
-                        </a>
+                        <div style="position: relative; display: inline-block;">
+    <a href="login.php" style="margin-right: 20px; text-decoration: none;">
+        <i class="fa fa-user" style="font-size: 24px; color: #333;"></i>
+    </a>
+
+    <div style="display: none; position: absolute; right: 0; background-color: white; min-width: 150px; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); z-index: 1; border-radius: 4px;"
+         id="adminDropdown">
+         <a href="login.php" style="color: #333; padding: 10px 16px; text-decoration: none; display: block;">User Login</a>
+        <a href="furnitureadminpannel/login.php" style="color: #333; padding: 10px 16px; text-decoration: none; display: block;">Admin Login</a>
+        </div>
+</div>
+
+<script>
+    // Toggle dropdown on icon click
+    const userIcon = document.querySelector('.fa-user');
+    const dropdown = document.getElementById('adminDropdown');
+
+    userIcon.addEventListener('click', function (e) {
+        e.preventDefault();
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Optional: hide dropdown when clicking elsewhere
+    window.addEventListener('click', function (e) {
+        if (!e.target.matches('.fa-user')) {
+            dropdown.style.display = 'none';
+        }
+    });
+</script>
+
                         <div class="cart-container">
                             <a href="login.php" style="text-decoration: none;">
                                 <i class="fa fa-shopping-cart" style="font-size: 24px; color: #333;"></i>

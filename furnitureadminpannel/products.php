@@ -22,8 +22,8 @@ if(isset($_GET['delete'])){
     
     if(mysqli_query($conn, $query)){
         // Delete product image
-        if(file_exists("../uploads/" . $image_data['image'])){
-            unlink("../uploads/" . $image_data['image']);
+        if(file_exists("/Furniture-website/images/" . $image_data['image'])){
+            unlink("/Furniture-website/images/" . $image_data['image']);
         }
         
         $success = "Product deleted successfully";
@@ -118,7 +118,6 @@ $categories_result = mysqli_query($conn, $categories_query);
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Image</th>
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Stock</th>
@@ -132,8 +131,7 @@ $categories_result = mysqli_query($conn, $categories_query);
                                     while($product = mysqli_fetch_assoc($result)){
                                         echo "<tr>";
                                         echo "<td>" . $product['id'] . "</td>";
-                                        echo "<td><img src='../uploads/" . $product['image'] . "' alt='" . $product['name'] . "' width='50'></td>";
-                                        echo "<td>" . $product['name'] . "</td>";
+                                       echo "<td>" . $product['name'] . "</td>";
                                         echo "<td>NPR." . number_format($product['price'], 2) . "</td>";
                                         echo "<td>" . $product['stock'] . "</td>";
                                         echo "<td>" . $product['category_name'] . "</td>";

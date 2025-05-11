@@ -88,7 +88,7 @@ $items_result = mysqli_query($conn, $items_query);
                                 </div>
                                 <div class="order-info-item">
                                     <span class="label">Total Amount:</span>
-                                    <span class="value">$<?php echo number_format($order['total_price'], 2); ?></span>
+                                    <span class="value">NPR.<?php echo number_format($order['total_price'], 2); ?></span>
                                 </div>
                             </div>
                         </div>
@@ -143,12 +143,12 @@ $items_result = mysqli_query($conn, $items_query);
                                         
                                         echo "<tr>";
                                         echo "<td class='product-cell'>";
-                                        echo "<img src='../uploads/" . $item['product_image'] . "' alt='" . $item['product_name'] . "' width='50'>";
+                                        echo "<img src='/Furniture-website/images/" . $item['product_image'] . "' alt='" . $item['product_name'] . "' width='50'>";
                                         echo "<span>" . $item['product_name'] . "</span>";
                                         echo "</td>";
-                                        echo "<td>$" . number_format($item['price'], 2) . "</td>";
+                                        echo "<td>NPR." . number_format($item['price'], 2) . "</td>";
                                         echo "<td>" . $item['quantity'] . "</td>";
-                                        echo "<td>$" . number_format($subtotal, 2) . "</td>";
+                                        echo "<td>NPR." . number_format($subtotal, 2) . "</td>";
                                         echo "</tr>";
                                     }
                                     ?>
@@ -156,7 +156,7 @@ $items_result = mysqli_query($conn, $items_query);
                                 <tfoot>
                                     <tr>
                                         <td colspan="3" class="text-right"><strong>Total:</strong></td>
-                                        <td><strong>$<?php echo number_format($total, 2); ?></strong></td>
+                                        <td><strong>NPR.<?php echo number_format($total, 2); ?></strong></td>
                                     </tr>
                                 </tfoot>
                             </table>

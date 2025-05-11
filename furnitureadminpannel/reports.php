@@ -189,7 +189,7 @@ $customers_data = mysqli_fetch_assoc($customers_result);
                                         while($product = mysqli_fetch_assoc($products_result)){
                                             echo "<tr>";
                                             echo "<td class='product-cell'>";
-                                            echo "<img src='../uploads/" . $product['image'] . "' alt='" . $product['name'] . "' width='40'>";
+                                            echo "<img src='/Furniture-website/images/" . $product['image'] . "' alt='" . $product['name'] . "' width='40'>";
                                             echo "<span>" . $product['name'] . "</span>";
                                             echo "</td>";
                                             echo "<td>" . $product['total_quantity'] . "</td>";
