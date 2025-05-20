@@ -21,7 +21,6 @@
                 <i class="fas fa-chevron-down"></i>
                 <div class="dropdown-content">
                     <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
-                    <a href="settings.php"><i class="fas fa-cog"></i> Settings</a>
                     <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>

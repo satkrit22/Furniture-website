@@ -55,10 +55,10 @@
         </li>
         <?php endif; ?>
         
-        <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'settings.php' ? 'active' : ''; ?>">
-            <a href="settings.php">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
+        <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'logout.php' ? 'active' : ''; ?>">
+            <a href="logout.php">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>logout</span>
             </a>
         </li>
     </ul>
