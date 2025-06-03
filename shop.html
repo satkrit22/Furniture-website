@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shri Online Furniture</title>
+
+     <!-- normalize css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     
+  
+    <!-- custom utilities css -->
+     <link rel = "stylesheet" href = "css/shop.css">
+     <style>
+        
+     </style>
+     
+    
+</head>
+<body>
+    
+      <!-- navbar -->
+    <nav class = "navbar bg-brown flex">
+          <!-- main navigation list -->
+        <div class = "navbar-collapse flex">
+        <li style="list-style-type: none;margin-left: 5% ;margin-right: 1000px;">
+          <a href="home.html">  <img src="images/shri_online_furniture-removebg-preview.png" alt="Logo" style="height: 80px; width: auto; margin-left: -100px;">
+        </li></a>
+        <div class = "container flex">
+                <!-- nav list -->
+                <ul class = "navbar-nav text-uppercase">
+                    <li class="nav-item">
+                        <a href="home.html" class="nav-link" 
+                           onmouseover="this.style.color='#ffb74d'" 
+                           onmouseout="this.style.color=''" 
+                           onmousedown="this.style.color='#ffb74d'" 
+                           onmouseup="this.style.color=''">
+                            <span class="nav-link-text">home</span>
+                        </a>
+                    </li>
+                    
+                  
+                    <li class = "nav-item">
+                        <a href = "shop.html" class = "nav-link "
+                        onmouseover="this.style.color='#ffb74d'" 
+                           onmouseout="this.style.color=''" 
+                           onmousedown="this.style.color='#ffb74d'" 
+                           onmouseup="this.style.color=''">
+                            <span class = "nav-link-text">Shop</span>
+                            
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="signout.php" class="nav-link">
+                            <button class="nav-link-text" id="logout-btn">Logout</button>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <!-- end of nav list -->
+
+                <!-- account icons -->
+                <div class="nav-icons" style="display: flex; align-items: center;">
+                    <!-- User Icon -->
+                    <a href="signup.html" style="margin-right: 20px; text-decoration: none;">
+                        <i class="fa fa-user" style="font-size: 24px; color: #333;"></i>
+                    </a>
+                
+                     
+                    <!-- Cart Icon -->
+                    <div class="cart-container" style="position: relative;">
+                        <a href="cart.html" style="text-decoration: none;">
+                            <i class="fa fa-shopping-cart" style="font-size: 24px; color: #333;"></i>
+                        </a>
+                        <!-- Cart Counter -->
+                        <span id="cart-count" style="position: absolute; top: -5px; right: -10px; background-color: red; color: white; padding: 5px; border-radius: 50%; font-size: 12px;">0</span>
+                    </div>
+                </div>
+                
+                <!-- end of account icons -->
+            </div>
+            <!-- end of main navigation list -->
+        </div>
+    </nav>
+    <!-- end of navbar -->
+
+    <!-- featured deals section -->
+    <section class = "featured-deals bg-light-grey-color-shade py" id = "featured-deals">
+        <div class = "container">
+            <div class = "section-title text-center">
+                <h2>Check Our Products</h2>
+                <p class = "lead">Here you can check out our products with fair price on Shri.</p>
+                <div class = "line"></div>
+            </div>
+
+            <div class = "featured-deals-content grid">
+
+                
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="studytable.html">
+                        <img src = "images/small study table.jpg"></a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Study Table</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 1000</span>
+                            <span class = "new text-brown">NRP 500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Study Table', 'NRP 500')">Add to Cart</button>
+                            <a href="studytable.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="dining table.html">
+                        <img src = "images/dining table.jpeg"></a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Dining Table</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 25500</span>
+                            <span class = "new text-brown">NRP 20000</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Dining Table', 'NRP 20000')">Add to Cart</button>
+                            <a href="dining table.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+              
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="Aquariumstand.html">
+                        <img src = "images/aquorium.jpg"></a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Aquarium Stand </p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 3500</span>
+                            <span class = "new text-brown">NRP 1500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Aquarium Stand ', 'NRP 1500')">Add to Cart</button>
+                            <a href="Aquariumstand.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="gamingchair.html">
+                        <img src = "images/gaming chair.webp"></a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Gaming Chair</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 17500</span>
+                            <span class = "new text-brown">NRP 15500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Gaming Chair', 'NRP 15500')">Add to Cart</button>
+                            <a href="gamingchair.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="comfortablechair.html">
+                        <img src = "images/new_product_img_1.png"></a>
+                        
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Comfortable Chair</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 10000</span>
+                            <span class = "new text-brown">NRP 5500</span>
+                        </div>
+                        <div class="button-container">
+                            <button class="cart-btn" onclick="addToCart('Comfortable Chair', 'NRP 15000')">Add to Cart</button>
+                            <a href="comfortablechair.html"><button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> 
+                        <a href="chaiselongue.html">
+                        <img src = "images/featured_deals_img_2.png">
+                    </a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Chaise Longue</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 7500</span>
+                            <span class = "new text-brown">NRP 3000</span>
+                        </div>
+                        <div class="button-container">
+                      <button class="cart-btn" onclick="addToCart('Decor For Drawing Room', 'NRP 3000')">Add to Cart</button>
+                            <a href="chaiselongue.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="cupboard.html">
+                        <img src = "images/featured_deals_img_3.png"></a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Cupboard</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 26500</span>
+                            <span class = "new text-brown">NRP 17500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Cupboard', 'NRP 17500')">Add to Cart</button>
+                            <a href="cupboard.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="woodbarstool.html">
+                        <img src = "images/featured_deals_img_4.png"></a>
+                    </div>
+                    <div class = "info bg-white">
+                       
+                        <p class = "name">Wood Bar Stool</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 2500</span>
+                            <span class = "new text-brown">NRP 1000</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Wood Bar Stool', 'NRP 1000')">Add to Cart</button>
+                            <a href="woodbarstool.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="sofa.html">
+                        <img src = "images/featured_deals_img_1.png"> </a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Sofa</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 25500</span>
+                            <span class = "new text-brown">NRP 19000</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Sofa', 'NRP 19000')">Add to Cart</button>
+                            <a href="sofa.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="bedroomdecoration.html">
+                        <img src = "images/new_product_img_2.png"></a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">BedRoom Decoration</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 5500</span>
+                            <span class = "new text-brown">NRP 2500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('BedRoom Decoration', 'NRP 2500')">Add to Cart</button>
+                            <a href="bedroomdecoration.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="decorfordrawing.html">
+                        <img src = "images/new_product_img_4.png"> </a>
+                    </div>
+                    <div class = "info bg-white">
+                       
+                        <p class = "name">Decor For Drawing Room</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 1500</span>
+                            <span class = "new text-brown">NRP 500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Decor For Drawing Room', 'NRP 500')">Add to Cart</button>
+                            <a href="decorfordrawing.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="sofawithtable.html">
+                        <img src = "images/sofa with table.png"> </a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Sofa with table</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 47500</span>
+                            <span class = "new text-brown">NRP 35500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Decor For Drawing Room', 'NRP 35500')">Add to Cart</button>
+                            <a href="sofawithtable.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="computertable.html">
+                        <img src = "images/computer table.jpg"></a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Computer Table</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 12500</span>
+                            <span class = "new text-brown">NRP 6500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Computer Table', 'NRP 6500')">Add to Cart</button>
+                            <a href="computertable.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="center table.html">
+                        <img src = "images/center table.webp"></a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Center Table</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 7500</span>
+                            <span class = "new text-brown">NRP 3500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Center Table', 'NRP 3500')">Add to Cart</button>
+                            <a href="center table.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="bed.html">
+                        <img src = "images/bed.jpg"> </a>
+                    </div>
+                    <div class = "info bg-white">
+                       
+                        <p class = "name">Bed</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 7500</span>
+                            <span class = "new text-brown">NRP 3500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Bed', 'NRP 3500')">Add to Cart</button>
+                            <a href="bed.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="shelftower.html">
+                        <img src = "images/shelf.jpg"></a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Shelf Tower</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 14500</span>
+                            <span class = "new text-brown">NRP 7500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Shelf Tower', 'NRP 7500')">Add to Cart</button>
+                            <a href="shelftower.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="makeuptable.html">
+                        <img src = "images/makeuo Table.jpg"> </a>
+                    </div>
+                    <div class = "info bg-white">
+                       
+                        <p class = "name">Makeup Table</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 12500</span>
+                            <span class = "new text-brown">NRP 6500</span>
+                        </div>
+                        <div class="button-contai12er">
+                        <button class="cart-btn" onclick="addToCart('Makeup Table', 'NRP 6500')">Add to Cart</button>
+                            <a href="makeuptable.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="office chair.html">
+                        <img src = "images/office chair.webp"> </a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Office Chair</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 12500</span>
+                            <span class = "new text-brown">NRP 6500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Office Chair', 'NRP 6500')">Add to Cart</button>
+                            <a href="office chair.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="clothcupboard.html">
+                        <img src = "images/clothvupboard.webp"> </a>
+                    </div>
+                    <div class = "info bg-white">
+                       
+                        <p class = "name">Cloth Cupboard</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 17500</span>
+                            <span class = "new text-brown">NRP 12500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Cloth Cupboard', 'NRP 12500')">Add to Cart</button>
+                            <a href="clothcupboard.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class = "featured-deals-item">
+                    <div class = "image"> <a href="singlebed.html">
+                        <img src = "images/single bed.jpg"></a>
+                    </div>
+                    <div class = "info bg-white">
+                        
+                        <p class = "name">Single Bed</p>
+                        <div class = "price">
+                            <span class = "old text-grey">NRP 3500</span>
+                            <span class = "new text-brown">NRP 1500</span>
+                        </div>
+                        <div class="button-container">
+                        <button class="cart-btn" onclick="addToCart('Single Bed', 'NRP 1500')">Add to Cart</button>
+                            <a href="singlebed.html"> <button class="buy-btn">Buy Now</button></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <script>
+        function addToCart(itemName, itemPrice) {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.push({ name: itemName, price: itemPrice });
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            updateCartCount();
+        }
+        function updateCartCount() {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            document.getElementById('cart-count').textContent = cartItems.length;
+        }
+        window.onload = function() {
+            updateCartCount();
+        }
+    </script>
+    <!-- end of featured deals section -->
+
+
+
+    <!-- footer -->
+    <footer class = "footer bg-light-brown" id = "footer">
+        <div class = "container">
+            <div class = "footer-content py grid text-center">
+                <div class = "footer-item">
+                    <h3>Shri Furniture</h3>
+                    <p class = "text">Welcome to Shri Furniture, where quality meets craftsmanship. Explore our wide range of furniture collections, designed to bring comfort, elegance, and functionality to your home. From modern to classic styles, we help you create spaces you love.</p>
+                </div>
+
+
+                <div class = "footer-item">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li class = "text"><a href = "home.html">Home</a></li>
+                        <li class = "text"><a href = "signup.html">Shop</a></li>
+                        <li class = "text"><a href = "aboutus.html">About Us</a></li>
+                        <li class = "text"><a href = "signup.html">Log In</a></li>
+
+                    </ul>
+                </div>
+
+                <div class = "footer-item">
+                    <h3>Contact Us</h3>
+                    <p class = "text">Kathmandu, Nepal</p>
+                    <p class = "text">Phone: +977 9841943843</p>
+                    <p class = "text">Email: shri@furnish.com</p>
+                </div>
+                
+
+               
+            </div>
+        </div> 
+    </footer>
+    <!-- end of footer -->
+
+
+</body>
+</html>
