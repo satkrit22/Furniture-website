@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_to_cart'])) {
     $product_name = $_POST['product_name'];
     $product_price = $_POST['product_price'];
     $product_id = (int)$_POST['product_id'];  // Casting to integer to prevent any issues
+    $quantity = 1; // Default to 1
 
     // Check the stock of the product before adding it to the cart
     $stockQuery = "SELECT stock FROM products WHERE id = $product_id";
@@ -58,25 +59,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_to_cart'])) {
         $stock = mysqli_fetch_assoc($stockResult)['stock'];
 
         // If there is stock available, update the stock and add to cart
-        if ($stock > 0) {
-            // Create an array to represent the product
-            $item = ['name' => $product_name, 'price' => $product_price, 'id' => $product_id];
-
+        if ($stock >= $quantity) {
             // Check if the product is already in the cart
             $product_in_cart = false;
-            foreach ($_SESSION['cart'] as $cart_item) {
+            $cart_index = -1;
+            
+            foreach ($_SESSION['cart'] as $index => $cart_item) {
                 if ($cart_item['id'] == $product_id) {
                     $product_in_cart = true;
+                    $cart_index = $index;
                     break;
                 }
             }
 
             if (!$product_in_cart) {
                 // Add the product to the cart session array
-                $_SESSION['cart'][] = $item;
+                $_SESSION['cart'][] = [
+                    'name' => $product_name, 
+                    'price' => $product_price, 
+                    'id' => $product_id,
+                    'quantity' => $quantity
+                ];
 
-                // Decrease the stock by 1
-                $updateStockQuery = "UPDATE products SET stock = stock - 1 WHERE id = $product_id";
+                // Decrease the stock by the quantity
+                $updateStockQuery = "UPDATE products SET stock = stock - $quantity WHERE id = $product_id";
                 mysqli_query($conn, $updateStockQuery);
 
                 // Set flag to show success message
@@ -284,6 +290,89 @@ $conn->close();
             border-radius: 5px;
             display: none;
         }
+        
+        /* Mobile First Responsive Design */
+        @media (max-width: 480px) {
+            .navbar {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .navbar img {
+                height: 60px;
+                margin-bottom: 10px;
+            }
+            
+            .navbar ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-right: 0;
+                gap: 10px;
+            }
+            
+            .navbar ul li a {
+                font-size: 14px;
+                padding: 5px;
+            }
+            
+            .featured-deals-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 10px;
+            }
+            
+            .featured-deals-item {
+                height: auto;
+                min-height: 400px;
+            }
+            
+            .search-container {
+                margin: 10px 0;
+                width: 100%;
+            }
+            
+            .search-container form {
+                width: 100%;
+            }
+            
+            .search-container input[type="text"] {
+                flex: 1;
+                padding: 8px;
+            }
+        }
+
+        @media (min-width: 481px) and (max-width: 768px) {
+            .navbar ul {
+                gap: 15px;
+                margin-right: 20px;
+            }
+            
+            .navbar ul li a {
+                font-size: 16px;
+            }
+            
+            .featured-deals-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .featured-deals-item {
+                height: auto;
+                min-height: 450px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .featured-deals-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .featured-deals-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
@@ -352,8 +441,10 @@ $conn->close();
                                     <form method="post">
                                         <input type="hidden" name="product_name" value="' . htmlspecialchars($row['name']) . '">
                                         <input type="hidden" name="product_price" value="' . $row['price'] . '">
-                                        <input type="hidden" name="product_id" value="' . $row['id'] . '"> 
-                                        <button type="submit" name="add_to_cart" class="cart-btn">Add to Cart</button>
+                                        <input type="hidden" name="product_id" value="' . $row['id'] . '">
+                                        <button type="submit" name="add_to_cart" class="cart-btn" ' . ($row['stock'] <= 0 ? 'disabled' : '') . '>
+                                            ' . ($row['stock'] <= 0 ? 'Out of Stock' : 'Add to Cart') . '
+                                        </button>
                                     </form>
                                 </div>
                             </div>

@@ -22,15 +22,22 @@ if(isset($_POST['submit'])){
         $allowed = array('jpg', 'jpeg', 'png', 'gif');
         $filename = $_FILES['image']['name'];
         $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
-        
+
         if(in_array(strtolower($file_ext), $allowed)){
             $new_filename = uniqid() . '.' . $file_ext;
-            $upload_path = '../uploads/' . $new_filename;
-            
+            $upload_dir = '../uploads/';
+            $upload_path = $upload_dir . $new_filename;
+
+            // Automatically create upload directory if not exists
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+
             if(move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)){
                 $image = $new_filename;
+                // echo realpath($upload_path); // Uncomment for debug
             } else {
-                $error = "Error uploading image";
+                $error = "Error uploading image. Make sure 'uploads' folder is writable.";
             }
         } else {
             $error = "Invalid file type. Only JPG, JPEG, PNG and GIF are allowed.";
@@ -38,7 +45,7 @@ if(isset($_POST['submit'])){
     } else {
         $error = "Please select an image";
     }
-    
+
     if(!isset($error)){
         // Insert product
         $query = "INSERT INTO products (name, description, price, stock, image, category_id) 
@@ -67,21 +74,17 @@ $categories_result = mysqli_query($conn, $categories_query);
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar -->
         <?php include 'includes/sidebar.php'; ?>
 
-        <!-- Main Content -->
         <div class="main-content">
-            <!-- Header -->
             <?php include 'includes/header.php'; ?>
 
-            <!-- Add Product Content -->
             <div class="content">
                 <div class="content-header">
                     <h2>Add New Product</h2>
                     <a href="products.php" class="btn btn-primary">Back to Products</a>
                 </div>
-                
+
                 <?php if(isset($success)): ?>
                     <div class="alert alert-success"><?php echo $success; ?></div>
                 <?php endif; ?>
@@ -89,7 +92,7 @@ $categories_result = mysqli_query($conn, $categories_query);
                 <?php if(isset($error)): ?>
                     <div class="alert alert-danger"><?php echo $error; ?></div>
                 <?php endif; ?>
-                
+
                 <div class="card">
                     <div class="card-header">
                         <h3>Product Information</h3>
@@ -115,7 +118,7 @@ $categories_result = mysqli_query($conn, $categories_query);
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group">
@@ -130,12 +133,12 @@ $categories_result = mysqli_query($conn, $categories_query);
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea id="description" name="description" class="form-control" rows="5" required></textarea>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="image">Product Image</label>
                                 <input type="file" id="image" name="image" class="form-control" accept="image/*" required onchange="previewImage(this, 'image-preview')">
@@ -143,7 +146,7 @@ $categories_result = mysqli_query($conn, $categories_query);
                                     <img id="image-preview" src="#" alt="Preview" style="display: none; max-width: 200px; margin-top: 10px;">
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <button type="submit" name="submit" class="btn btn-primary">Add Product</button>
                             </div>
@@ -154,6 +157,19 @@ $categories_result = mysqli_query($conn, $categories_query);
         </div>
     </div>
 
+    <script>
+        function previewImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
     <script src="js/script.js"></script>
 </body>
 </html>

@@ -14,7 +14,6 @@ if(isset($_POST['submit'])){
     $email = sanitize($_POST['email']);
     $phone = sanitize($_POST['phone']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $is_admin = isset($_POST['is_admin']) ? 1 : 0;
     
     // Check if email already exists
     $check_query = "SELECT * FROM users WHERE email = '$email'";
@@ -24,7 +23,7 @@ if(isset($_POST['submit'])){
         $error = "Email already exists";
     } else {
         // Insert user
-        $query = "INSERT INTO users (name, email, phone, password, is_admin) VALUES ('$name', '$email', '$phone', '$password', $is_admin)";
+        $query = "INSERT INTO users (name, email, phone, password) VALUES ('$name', '$email', '$phone', '$password')";
         
         if(mysqli_query($conn, $query)){
             $success = "User added successfully";
@@ -109,12 +108,7 @@ if(isset($_POST['submit'])){
                                 </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label>
-                                    <input type="checkbox" name="is_admin"> 
-                                    Make this user an administrator
-                                </label>
-                            </div>
+                            
                             
                             <div class="form-group">
                                 <button type="submit" name="submit" class="btn btn-primary">Add User</button>

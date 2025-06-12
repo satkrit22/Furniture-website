@@ -31,11 +31,52 @@ if(mysqli_num_rows($result) == 0){
 $order = mysqli_fetch_assoc($result);
 
 // Get order items
-$items_query = "SELECT oi.*, p.name as product_name, p.image as product_image 
+$items_query = "SELECT oi.*, p.name as product_name, p.image as product_image, p.stock as current_stock
                FROM order_items oi 
                JOIN products p ON oi.product_id = p.id 
                WHERE oi.order_id = $order_id";
 $items_result = mysqli_query($conn, $items_query);
+
+// Handle status update
+if(isset($_POST['update_status'])){
+    $status = $_POST['status'];
+    $old_status = $order['status'];
+    
+    // Update the order status
+    $update_query = "UPDATE orders SET status = ? WHERE id = ?";
+    $stmt = $conn->prepare($update_query);
+    $stmt->bind_param("si", $status, $order_id);
+    
+    if($stmt->execute()){
+        // If order is cancelled, return items to stock
+        if($status == 'cancelled' && $old_status != 'cancelled') {
+            // Reset the items result pointer
+            mysqli_data_seek($items_result, 0);
+            
+            while($item = mysqli_fetch_assoc($items_result)) {
+                $product_id = $item['product_id'];
+                $quantity = $item['quantity'];
+                
+                // Return items to stock
+                $updateStockQuery = "UPDATE products SET stock = stock + ? WHERE id = ?";
+                $stockStmt = $conn->prepare($updateStockQuery);
+                $stockStmt->bind_param("ii", $quantity, $product_id);
+                $stockStmt->execute();
+            }
+            
+            // Reset the items result pointer again for display
+            mysqli_data_seek($items_result, 0);
+        }
+        
+        $success = "Order status updated successfully";
+        
+        // Refresh order data
+        $result = mysqli_query($conn, $query);
+        $order = mysqli_fetch_assoc($result);
+    } else {
+        $error = "Error updating order status";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,6 +103,14 @@ $items_result = mysqli_query($conn, $items_query);
                     <h2>Order #<?php echo $order_id; ?> Details</h2>
                     <a href="orders.php" class="btn btn-primary">Back to Orders</a>
                 </div>
+                
+                <?php if(isset($success)): ?>
+                    <div class="alert alert-success"><?php echo $success; ?></div>
+                <?php endif; ?>
+                
+                <?php if(isset($error)): ?>
+                    <div class="alert alert-danger"><?php echo $error; ?></div>
+                <?php endif; ?>
                 
                 <div class="order-details">
                     <div class="card">
@@ -132,6 +181,7 @@ $items_result = mysqli_query($conn, $items_query);
                                         <th>Price</th>
                                         <th>Quantity</th>
                                         <th>Subtotal</th>
+                                        <th>Current Stock</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -149,6 +199,7 @@ $items_result = mysqli_query($conn, $items_query);
                                         echo "<td>NPR." . number_format($item['price'], 2) . "</td>";
                                         echo "<td>" . $item['quantity'] . "</td>";
                                         echo "<td>NPR." . number_format($subtotal, 2) . "</td>";
+                                        echo "<td>" . $item['current_stock'] . "</td>";
                                         echo "</tr>";
                                     }
                                     ?>
@@ -157,6 +208,7 @@ $items_result = mysqli_query($conn, $items_query);
                                     <tr>
                                         <td colspan="3" class="text-right"><strong>Total:</strong></td>
                                         <td><strong>NPR.<?php echo number_format($total, 2); ?></strong></td>
+                                        <td></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -168,8 +220,7 @@ $items_result = mysqli_query($conn, $items_query);
                             <h3>Update Order Status</h3>
                         </div>
                         <div class="card-body">
-                            <form action="orders.php" method="POST">
-                                <input type="hidden" name="order_id" value="<?php echo $order_id; ?>">
+                            <form action="" method="POST">
                                 <div class="form-row">
                                     <div class="form-col">
                                         <div class="form-group">
@@ -188,6 +239,15 @@ $items_result = mysqli_query($conn, $items_query);
                                         </div>
                                     </div>
                                 </div>
+                                <?php if($order['status'] != 'cancelled'): ?>
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle"></i> Note: Cancelling an order will return all items to stock.
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
                             </form>
                         </div>
                     </div>
@@ -244,6 +304,30 @@ $items_result = mysqli_query($conn, $items_query);
         
         .text-right {
             text-align: right;
+        }
+        
+        .alert {
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
         }
         
         @media (max-width: 768px) {

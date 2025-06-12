@@ -12,10 +12,37 @@ if(!isset($_SESSION['admin_id'])){
 if(isset($_POST['update_status'])){
     $order_id = $_POST['order_id'];
     $status = $_POST['status'];
+    $old_status = '';
     
+    // Get the current status before updating
+    $statusQuery = "SELECT status FROM orders WHERE id = $order_id";
+    $statusResult = mysqli_query($conn, $statusQuery);
+    if($statusResult && mysqli_num_rows($statusResult) > 0) {
+        $old_status = mysqli_fetch_assoc($statusResult)['status'];
+    }
+    
+    // Update the order status
     $query = "UPDATE orders SET status = '$status' WHERE id = $order_id";
     
     if(mysqli_query($conn, $query)){
+        // If order is cancelled, return items to stock
+        if($status == 'cancelled' && $old_status != 'cancelled') {
+            // Get order items
+            $itemsQuery = "SELECT product_id, quantity FROM order_items WHERE order_id = $order_id";
+            $itemsResult = mysqli_query($conn, $itemsQuery);
+            
+            if($itemsResult) {
+                while($item = mysqli_fetch_assoc($itemsResult)) {
+                    $product_id = $item['product_id'];
+                    $quantity = $item['quantity'];
+                    
+                    // Return items to stock
+                    $updateStockQuery = "UPDATE products SET stock = stock + $quantity WHERE id = $product_id";
+                    mysqli_query($conn, $updateStockQuery);
+                }
+            }
+        }
+        
         $success = "Order status updated successfully";
     } else {
         $error = "Error updating order status: " . mysqli_error($conn);

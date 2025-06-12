@@ -29,6 +29,15 @@ if (!isset($_SESSION['cart'])) {
 if (isset($_GET['remove'])) {
     $index = $_GET['remove'];
     if (isset($_SESSION['cart'][$index])) {
+        // Get product ID and quantity before removing from cart
+        $product_id = $_SESSION['cart'][$index]['id'];
+        $quantity = isset($_SESSION['cart'][$index]['quantity']) ? $_SESSION['cart'][$index]['quantity'] : 1;
+        
+        // Return the quantity back to stock
+        $updateStockQuery = "UPDATE products SET stock = stock + $quantity WHERE id = $product_id";
+        mysqli_query($conn, $updateStockQuery);
+        
+        // Remove from cart
         unset($_SESSION['cart'][$index]);
         $_SESSION['cart'] = array_values($_SESSION['cart']); // Re-index array
         
@@ -43,16 +52,54 @@ if (isset($_GET['remove'])) {
 
 // Handle Update Quantity
 if (isset($_POST['update_cart'])) {
-    foreach ($_POST['quantity'] as $index => $quantity) {
+    foreach ($_POST['quantity'] as $index => $new_quantity) {
         if (isset($_SESSION['cart'][$index])) {
+            $product_id = $_SESSION['cart'][$index]['id'];
+            $old_quantity = isset($_SESSION['cart'][$index]['quantity']) ? $_SESSION['cart'][$index]['quantity'] : 1;
+            
             // Validate quantity
-            $quantity = max(1, min(99, (int)$quantity));
-            $_SESSION['cart'][$index]['quantity'] = $quantity;
+            $new_quantity = max(1, min(99, (int)$new_quantity));
+            
+            // Check if quantity changed
+            if ($new_quantity != $old_quantity) {
+                // Check if we need to get more from stock or return some to stock
+                $quantity_difference = $old_quantity - $new_quantity;
+                
+                if ($quantity_difference > 0) {
+                    // Return some items to stock
+                    $updateStockQuery = "UPDATE products SET stock = stock + $quantity_difference WHERE id = $product_id";
+                } else {
+                    // Take more items from stock
+                    $quantity_to_take = abs($quantity_difference);
+                    
+                    // Check if we have enough stock
+                    $stockQuery = "SELECT stock FROM products WHERE id = $product_id";
+                    $stockResult = mysqli_query($conn, $stockQuery);
+                    $available_stock = mysqli_fetch_assoc($stockResult)['stock'];
+                    
+                    if ($available_stock < $quantity_to_take) {
+                        // Not enough stock, set to maximum available
+                        $new_quantity = $old_quantity + $available_stock;
+                        $quantity_to_take = $available_stock;
+                        $_SESSION['cart_error'] = "Some items are out of stock. Your cart has been adjusted.";
+                    }
+                    
+                    $updateStockQuery = "UPDATE products SET stock = stock - $quantity_to_take WHERE id = $product_id";
+                }
+                
+                // Update stock in database
+                mysqli_query($conn, $updateStockQuery);
+                
+                // Update quantity in cart
+                $_SESSION['cart'][$index]['quantity'] = $new_quantity;
+            }
         }
     }
     
     // Set success message
-    $_SESSION['cart_updated'] = "Cart updated successfully!";
+    if (!isset($_SESSION['cart_error'])) {
+        $_SESSION['cart_updated'] = "Cart updated successfully!";
+    }
     
     // Redirect to prevent form resubmission
     header("Location: cart.php");
@@ -61,6 +108,15 @@ if (isset($_POST['update_cart'])) {
 
 // Handle Clear Cart
 if (isset($_POST['clear_cart'])) {
+    // Return all items to stock
+    foreach ($_SESSION['cart'] as $item) {
+        $product_id = $item['id'];
+        $quantity = isset($item['quantity']) ? $item['quantity'] : 1;
+        
+        $updateStockQuery = "UPDATE products SET stock = stock + $quantity WHERE id = $product_id";
+        mysqli_query($conn, $updateStockQuery);
+    }
+    
     $_SESSION['cart'] = [];
     
     // Set success message
@@ -103,14 +159,35 @@ if (isset($_POST['checkout'])) {
     // Remove trailing comma
     $total_products = rtrim($total_products, ", ");
     
-    // Insert order into database
-    $query = "INSERT INTO orders (user_id, name, number, email, method, address, total_products, total_price) 
-              VALUES (?, ?, ?, ?, 'Cash on Delivery', ?, ?, ?)";
+    // Start transaction
+    mysqli_begin_transaction($conn);
     
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("isssssi", $user_id, $user['name'], $user['phone'], $user['email'], $user['address'], $total_products, $total_price);
-    
-    if ($stmt->execute()) {
+    try {
+        // Insert order into database
+        $query = "INSERT INTO orders (user_id, name, number, email, method, address, total_products, total_price, status) 
+                VALUES (?, ?, ?, ?, 'Cash on Delivery', ?, ?, ?, 'pending')";
+        
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("issssdi", $user_id, $user['name'], $user['phone'], $user['email'], $user['address'], $total_price, $total_price);
+        $stmt->execute();
+        
+        $order_id = $conn->insert_id;
+        
+        // Insert order items
+        foreach ($_SESSION['cart'] as $item) {
+            $product_id = $item['id'];
+            $price = $item['price'];
+            $quantity = isset($item['quantity']) ? $item['quantity'] : 1;
+            
+            $query = "INSERT INTO order_items (order_id, product_id, price, quantity) VALUES (?, ?, ?, ?)";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("iidi", $order_id, $product_id, $price, $quantity);
+            $stmt->execute();
+        }
+        
+        // Commit transaction
+        mysqli_commit($conn);
+        
         // Clear cart after successful order
         $_SESSION['cart'] = [];
         
@@ -120,7 +197,10 @@ if (isset($_POST['checkout'])) {
         // Redirect to profile page
         header("Location: profile.php");
         exit;
-    } else {
+    } catch (Exception $e) {
+        // Rollback transaction on error
+        mysqli_rollback($conn);
+        
         $_SESSION['cart_error'] = "Something went wrong. Please try again.";
         header("Location: cart.php");
         exit;
@@ -274,7 +354,7 @@ $conn->close();
         
         .cart-item {
             display: grid;
-            grid-template-columns: 100px 1fr auto auto;
+            grid-template-columns: 100px 1fr auto auto auto;
             gap: 20px;
             align-items: center;
             padding: 20px;
@@ -309,28 +389,33 @@ $conn->close();
         }
         
         .quantity-input {
-            width: 50px;
+            width: 40px;
             text-align: center;
-            padding: 5px;
+            margin: 0 5px;
             border: 1px solid #ddd;
             border-radius: 4px;
+            padding: 2px 5px;
         }
         
-        .cart-item-subtotal {
-            font-weight: bold;
-            color: #4e4e4e;
+        .action-buttons {
+            display: flex;
         }
         
         .cart-item-remove {
-            color: #e74c3c;
-            background: none;
+            color: white;
+            background-color: #e74c3c;
             border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .cart-item-remove:hover {
-            color: #c0392b;
+            background-color: #c0392b;
         }
         
         .cart-actions {
@@ -365,6 +450,9 @@ $conn->close();
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .update-cart:hover {
@@ -379,6 +467,10 @@ $conn->close();
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 10px;
         }
         
         .clear-cart:hover {
@@ -415,7 +507,7 @@ $conn->close();
         }
         
         .checkout-btn {
-            display: block;
+            display: flex;
             width: 100%;
             background-color: rgb(225, 142, 49);
             color: white;
@@ -426,6 +518,9 @@ $conn->close();
             cursor: pointer;
             transition: background-color 0.3s;
             margin-top: 20px;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
         
         .checkout-btn:hover {
@@ -492,30 +587,62 @@ $conn->close();
             gap: 20px;
         }
         
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+        }
+        
+        .quantity-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
         @media (max-width: 768px) {
             .cart-grid {
                 grid-template-columns: 1fr;
             }
             
             .cart-item {
-                grid-template-columns: 80px 1fr;
+                grid-template-columns: 80px 1fr auto;
                 grid-template-rows: auto auto auto;
+                gap: 10px;
             }
             
             .cart-item-image {
                 grid-row: span 3;
             }
             
-            .cart-item-subtotal {
+            .cart-item-details {
+                grid-column: 2 / span 2;
+            }
+            
+            .cart-item-quantity {
                 grid-column: 2;
-                text-align: left;
-                margin-top: 10px;
+                grid-row: 2;
+            }
+            
+            .cart-item-subtotal {
+                grid-column: 3;
+                grid-row: 2;
+                text-align: right;
             }
             
             .cart-item-remove {
-                grid-column: 2;
-                text-align: left;
-                margin-top: 10px;
+                grid-column: 2 / span 2;
+                grid-row: 3;
+                justify-content: center;
             }
             
             .navbar ul {
@@ -529,6 +656,19 @@ $conn->close();
             
             .navbar ul li a .icon {
                 margin-right: 4px;
+            }
+            
+            .cart-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .action-buttons {
+                width: 100%;
+            }
+            
+            .update-cart, .clear-cart {
+                flex: 1;
             }
         }
     </style>
@@ -578,7 +718,7 @@ $conn->close();
                     <span class="cart-count-badge"><?php echo count($_SESSION['cart']); ?> Items</span>
                 </div>
                 
-                <form method="post" action="cart.php">
+                <form method="post" action="cart.php" id="cartForm">
                     <div class="cart-items">
                         <?php foreach ($_SESSION['cart'] as $index => $item): ?>
                             <div class="cart-item">
@@ -588,9 +728,13 @@ $conn->close();
                                 </div>
                                 
                                 <div class="cart-item-quantity">
-                                    <input type="number" name="quantity[<?php echo $index; ?>]" 
-                                           value="<?php echo isset($item['quantity']) ? $item['quantity'] : 1; ?>" 
-                                           min="1" max="99" class="quantity-input">
+                                    <div class="quantity-controls">
+                                        <span class="quantity-btn decrease">-</span>
+                                        <input type="number" name="quantity[<?php echo $index; ?>]" 
+                                               value="<?php echo isset($item['quantity']) ? $item['quantity'] : 1; ?>" 
+                                               min="1" max="99" class="quantity-input" readonly>
+                                        <span class="quantity-btn increase">+</span>
+                                    </div>
                                 </div>
                                 
                                 <div class="cart-item-subtotal">
@@ -598,7 +742,7 @@ $conn->close();
                                 </div>
                                 
                                 <a href="cart.php?remove=<?php echo $index; ?>" class="cart-item-remove">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="fas fa-trash"></i> Remove
                                 </a>
                             </div>
                         <?php endforeach; ?>
@@ -608,7 +752,7 @@ $conn->close();
                         <a href="shop.php" class="continue-shopping">
                             <i class="fas fa-arrow-left"></i> Continue Shopping
                         </a>
-                        <div>
+                        <div class="action-buttons">
                             <button type="submit" name="update_cart" class="update-cart">
                                 <i class="fas fa-sync-alt"></i> Update Cart
                             </button>
@@ -632,11 +776,11 @@ $conn->close();
                     <span>NRP <?php echo number_format($total); ?></span>
                 </div>
                 
-                  <button type="submit" name="checkout" class="checkout-btn" onclick="window.location.href='checkout.php';">
-    <i class="fas fa-lock"></i> Proceed to Checkout
-</button>
-
-                
+                <form method="post" action="cart.php">
+                    <button type="submit" name="checkout" class="checkout-btn">
+                        <i class="fas fa-lock"></i> Proceed to Checkout
+                    </button>
+                </form>
             </div>
         </div>
     <?php else: ?>
@@ -649,14 +793,40 @@ $conn->close();
     <?php endif; ?>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Hide alerts after 3 seconds
         setTimeout(function() {
             const alerts = document.querySelectorAll('.alert');
             alerts.forEach(function(alert) {
                 alert.style.display = 'none';
             });
         }, 3000);
+        
+        // Quantity controls
+        const decreaseBtns = document.querySelectorAll('.quantity-btn.decrease');
+        const increaseBtns = document.querySelectorAll('.quantity-btn.increase');
+        
+        decreaseBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.nextElementSibling;
+                let value = parseInt(input.value);
+                if (value > 1) {
+                    input.value = value - 1;
+                }
+            });
+        });
+        
+        increaseBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.previousElementSibling;
+                let value = parseInt(input.value);
+                if (value < 99) {
+                    input.value = value + 1;
+                }
+            });
+        });
     });
 </script>
 

@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $phone = trim($_POST['phone']);
-    $address = trim($_POST['address']);
     
     // Validate inputs
     $errors = [];
@@ -53,15 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         $errors[] = "Phone number is required";
     }
     
-    if (empty($address)) {
-        $errors[] = "Address is required";
-    }
-    
     // If no errors, update profile
     if (empty($errors)) {
-        $query = "UPDATE users SET name = ?, email = ?, phone = ?, address = ? WHERE id = ?";
+        $query = "UPDATE users SET name = ?, email = ?, phone = ? WHERE id = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssssi", $name, $email, $phone, $address, $user_id);
+        $stmt->bind_param("sssi", $name, $email, $phone, $user_id);
         
         if ($stmt->execute()) {
             $_SESSION['profile_success'] = "Profile updated successfully!";
@@ -620,12 +615,7 @@ $conn->close();
                         <label for="phone">Phone Number</label>
                         <input type="text" id="phone" name="phone" class="form-control" value="<?php echo htmlspecialchars($user['phone']); ?>" required>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <textarea id="address" name="address" class="form-control" rows="3" required><?php echo htmlspecialchars($user['address'] ?? ''); ?></textarea>
-                    </div>
-                    
+                                        
                     <button type="submit" name="update_profile" class="btn btn-primary">Update Profile</button>
                 </form>
             </div>
