@@ -776,11 +776,12 @@ $conn->close();
                     <span>NRP <?php echo number_format($total); ?></span>
                 </div>
                 
-                <form method="post" action="cart.php">
-                    <button type="submit" name="checkout" class="checkout-btn">
-                        <i class="fas fa-lock"></i> Proceed to Checkout
-                    </button>
-                </form>
+                <form method="post" action="checkout.php">
+    <button type="submit" name="checkout" class="checkout-btn">
+        <i class="fas fa-lock"></i> Proceed to Checkout
+    </button>
+</form>
+
             </div>
         </div>
     <?php else: ?>

@@ -32,9 +32,15 @@ $orders_query = "SELECT * FROM orders WHERE user_id = $id ORDER BY created_at DE
 $orders_result = mysqli_query($conn, $orders_query);
 
 // Get total orders
-$total_orders_query = "SELECT COUNT(*) as total, SUM(total_amount) as total_spent FROM orders WHERE user_id = $id";
+$id = intval($_GET['id']); // sanitizing input
+
+$total_orders_query = "SELECT COUNT(*) as total, SUM(total_price) as total_spent FROM orders WHERE user_id = $id";
 $total_orders_result = mysqli_query($conn, $total_orders_query);
+if (!$total_orders_result) {
+    die("Total Orders Query Failed: " . mysqli_error($conn));
+}
 $total_orders_data = mysqli_fetch_assoc($total_orders_result);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -129,7 +135,7 @@ $total_orders_data = mysqli_fetch_assoc($total_orders_result);
                                                     <?php echo $order['status']; ?>
                                                 </span>
                                             </td>
-                                            <td>NPR. <?php echo number_format($order['total_amount'], 2); ?></td>
+                                            <td>NPR. <?php echo number_format($order['total_price'], 2); ?></td>
                                             <td>
                                                 <a href="view-order.php?id=<?php echo $order['id']; ?>" class="action-icon view">
                                                     <i class="fas fa-eye"></i>
